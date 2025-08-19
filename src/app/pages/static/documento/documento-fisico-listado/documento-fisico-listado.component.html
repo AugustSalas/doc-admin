@@ -1,0 +1,114 @@
+<!-- Content Header (Page header) -->
+<section class="content-header header-siadci">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>Listado de Documentos Físicos</h1>
+      </div>
+      <div class="col-sm-6">
+        <h3>Muestra los registros de Documentos Físicos</h3>
+      </div>
+      <div class="col-sm-6 text-right">
+        <button routerLink="/documentofisico/formulario/new" class="btn-primary-siadci">
+          <i class="fa fa-plus"></i> Agregar
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content content-sidci">
+  <!-- Default box -->
+  <div class="container-fluid">
+    <div class="card-siadci py-4">
+      <!-- <div class="card-body"> -->
+      <div style="
+          width: 95%;
+          overflow: auto;
+          margin-left: auto;
+          margin-right: auto;
+        ">
+        <div class="table-siadci" [style.width]="Ancho">
+
+          <app-paginador #paginador  (change)="find( paginador.registros, paginador.page)"></app-paginador>
+
+          <mat-spinner *ngIf="this.loading"></mat-spinner>
+
+          <p-table #dt class="ng2-smart-table" [columns]="cols" [value]="data" [paginator]="true" [rows]="10"  *ngIf="!this.loading">
+            <ng-template pTemplate="caption">
+              <!-- <div style="text-align: left">
+                  <i class="fa fa-search"></i>
+                  <input
+                    type="text"
+                    pInputText
+                    size="50"
+                    placeholder="Filtro global"
+                    (input)="dt.filterGlobal($event.target.value, 'contains')">
+                </div> -->
+              <div class="search-wrapper-siadci d-flex">
+                <input type="text" pInputText placeholder="Filtro global" class="search-input"
+                  (input)="dt.filterGlobal($event.target.value, 'contains')" />
+                <i class="fa fa-search"></i>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th *ngFor="let col of columns">
+                  <div style="display: flex; white-space: normal; overflow: hidden">
+                    {{ col.header | titlecase }}
+                  </div>
+                </th>
+              </tr>
+              <tr>
+                <th *ngFor="let col of columns" [ngSwitch]="TipoDatoClase(col.field)">
+                  <input pInputText type="text" (input)="
+                      dt.filter($event.target.value, col.field, 'contains')
+                    " style="width: 100%" />
+
+
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+              <tr [pSelectableRow]="rowData">
+                <td *ngFor="let col of columns">
+                  <div style="display: flex; white-space: normal; overflow: hidden">
+                    <ng-container *ngIf="col.field == 'Acciones'">
+                      <div class="d-block">
+
+                      <!-- <button pButton type="button" label="Acuse" class="btn-in-table main-color"--> 
+                      <button pButton type="button"  class="btn-mini-siadci" title= "Adjuntos" icon="pi pi-paperclip" 
+                          (click)="visorAdjuntos(rowData)"></button>
+
+                          <button pButton type="button"  class="btn-mini-siadci" title= "Acuse" icon="pi pi-check" 
+                          (click)="visorAcuses(rowData)"> </button>
+
+                          <button  *ngIf="rowData.organizacionDestinoId==3 && rowData.entradaSalida == 'E' " pButton type="button"  class="btn-mini-siadci" title= "Indicador" icon="pi pi-chart-bar" 
+                          routerLink="/documentofisico/indicador/{{rowData.documentoFisicoId}}" > </button>
+  
+
+                          <button pButton (click)="EditarClase(rowData)" type="button" icon="pi pi-pencil"
+                          class="btn-mini-siadci"></button>
+                        <button pButton (click)="borrar(rowData)" type="button" icon="pi pi-trash"
+                          class="btn-mini-siadci"></button>
+                      </div>
+                    </ng-container>
+                    {{ TipoDatoValor(rowData[col.field], col.field) }}
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+      <!-- </div> -->
+      <!-- /.card-body -->
+      <!-- <div class="card-footer"></div> -->
+      <!-- /.card-footer-->
+    </div>
+  </div>
+  <!-- /.card -->
+</section>
+<!-- /.content -->

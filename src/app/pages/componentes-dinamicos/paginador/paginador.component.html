@@ -1,0 +1,25 @@
+<div style="margin: 5px; padding: 5px; display: none;" >
+    <span style="width: 20px;"></span>
+
+    <label for="">Página</label>
+    <button pButton type="button" class="btn-mini-siadci" title="Acuse" icon="pi pi-step-backward-alt"
+        (click)=" backPage()">
+    </button>
+
+    <input type="number" pInputText placeholder="pagina" style="width: 70px;" [(ngModel)]="page" />
+    
+    <button pButton type="button" class="btn-mini-siadci" title="Acuse" icon="pi pi-step-forward-alt"
+        (click)=" nextPage()">
+    </button>
+
+    <span style="width: 50px;"></span>
+
+    <label for="">Número de registros</label>
+
+    <input type="number" pInputText placeholder="numero registros" style="width: 80px;" [(ngModel)]="registros" />
+
+    <span style="width: 50px;"></span>
+
+    <button pButton type="button" label="Buscar" class="btn-in-table main-color" (click)="find()"></button>
+
+</div>

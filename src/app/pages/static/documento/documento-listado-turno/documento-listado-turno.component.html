@@ -1,0 +1,162 @@
+<!-- Content Header (Page header) -->
+<section class="content-header header-siadci">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>Búsqueda de Documento</h1>
+            </div>
+            <div class="col-sm-6">
+                <h3>Muestra los resultados de la consulta</h3>
+            </div>
+    
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content content-sidci">
+    <!-- Default box -->
+    <div class="container-fluid">
+        <div class="card-siadci py-4">
+            <!-- <div class="card-body"> -->
+            <div style="
+            width: 95%;
+            overflow: auto;
+            margin-left: auto;
+            margin-right: auto;
+          ">
+                <div class="table-siadci" [style.Minwidth]="Ancho" style="width: 1500px;">
+
+                    <div class="col-sm-6">
+                        <h3> Documentos Físicos</h3>
+                    </div>
+                    <p-table #dt class="ng2-smart-table" [columns]="colsDoc" [value]="dataDoc" [paginator]="true"
+                        [rows]="10">
+                        <ng-template pTemplate="caption" style="display: flex;">
+
+                            <div class="search-wrapper-siadci d-flex">
+
+                               <!--<input type="text" pInputText placeholder="Filtro global" class="search-input"
+                                    style="max-width: 500px;  margin-right: 10px;"
+                                    (input)="dt.filterGlobal($event.target.value, 'contains')" />
+                                <i class="fa fa-search" style="margin-left: 70px;"></i> -->
+
+                                <button pButton type="button" class="btn-mini-siadci" tittle="Acuse" icon="pi pi-search"
+                                    (click)="busquedaTurno([numOficio.value])" style="width: 50px;"></button>
+
+                                <input #numOficio type="text" pInputText placeholder="Buscar documento original" class="search-input"
+                                    style="max-width: 500px;  margin-right: 10px;"     />
+                                <i class="fa fa-edit"></i>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th *ngFor="let col of columns">
+                                    <div style="display: flex; white-space: normal; overflow: hidden">
+                                        {{ col.header | titlecase }}
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th *ngFor="let col of columns" [ngSwitch]="TipoDatoClase(col.field)">
+                                    <input pInputText type="text" (input)="
+                        dt.filter($event.target.value, col.field, 'contains')
+                      " style="width: 100%" />
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                            <mat-spinner *ngIf="this.loadingdoc"></mat-spinner>
+
+                            <tr [pSelectableRow]="rowData">
+                                <td *ngFor="let col of columns">
+                                    <div style="display: flex; white-space: normal; overflow: hidden">
+                                        <ng-container *ngIf="col.field == 'Acciones'">
+                                            <div class="d-block">
+
+                                                <!-- <button pButton type="button" label="Acuse" class="btn-in-table main-color"-->
+                                                <button pButton type="button" class="btn-mini-siadci" tittle="Acuse"
+                                                    icon="pi pi-paperclip" (click)="visorAdjuntos(rowData)"></button>
+
+                                                <button pButton (click)="EditarClase(rowData)" type="button"
+                                                    icon="pi pi-pencil" class="btn-mini-siadci"></button>
+                                                <button pButton (click)="borrar(rowData)" type="button"
+                                                    icon="pi pi-trash" class="btn-mini-siadci"></button>
+                                            </div>
+                                        </ng-container>
+                                        {{ rowData[col.field] }}
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    <div style="height: 30px;"></div>
+                    <div class="col-sm-6">
+                        <h3> Turnos</h3> 
+                    </div>
+                    <p-table #dt class="ng2-smart-table" [columns]="cols" [value]="data" [paginator]="true" [rows]="10">
+                        <ng-template pTemplate="caption" style="display: flex;">
+
+                            <div class="search-wrapper-siadci d-flex">
+
+                                <input type="text" pInputText placeholder="Filtro global" class="search-input"
+                                    style="max-width: 500px;  margin-right: 10px;"
+                                    (input)="dt.filterGlobal($event.target.value, 'contains')" />
+                                <i class="fa fa-search" style="margin-left: 70px;"></i>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th *ngFor="let col of columns">
+                                    <div style="display: flex; white-space: normal; overflow: hidden">
+                                        {{ col.header | titlecase }}
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th *ngFor="let col of columns" [ngSwitch]="TipoDatoClase(col.field)">
+                                    <input pInputText type="text" (input)="
+                        dt.filter($event.target.value, col.field, 'contains')
+                      " style="width: 100%" />
+
+
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                            <mat-spinner *ngIf="this.loading"></mat-spinner>
+
+                            <tr [pSelectableRow]="rowData">
+                                <td *ngFor="let col of columns">
+                                    <div style="display: flex; white-space: normal; overflow: hidden">
+                                        <ng-container *ngIf="col.field == 'Acciones'">
+                                            <div class="d-block">
+
+                                                <!-- <button pButton type="button" label="Acuse" class="btn-in-table main-color"-->
+                                                <button pButton type="button" class="btn-mini-siadci" tittle="Acuse"
+                                                    icon="pi pi-paperclip" (click)="visorAdjuntos(rowData)"></button>
+
+                                                <button pButton (click)="EditarClase(rowData)" type="button"
+                                                    icon="pi pi-pencil" class="btn-mini-siadci"></button>
+                                                <button pButton (click)="borrar(rowData)" type="button"
+                                                    icon="pi pi-trash" class="btn-mini-siadci"></button>
+                                            </div>
+                                        </ng-container>
+                                        {{ rowData[col.field] }}
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+            <!-- </div> -->
+            <!-- /.card-body -->
+            <!-- <div class="card-footer"></div> -->
+            <!-- /.card-footer-->
+        </div>
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->

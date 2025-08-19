@@ -1,0 +1,103 @@
+<aside #mainSidebar class="main-sidebar main-sidebar-siadci">
+  <!-- Sidebar -->
+  <div class="sidebar sidebar-siacdi" #side>
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="search-wrapper">
+        <input
+          type="search"
+          class="search-input"
+          [(ngModel)]="filtro"
+          (change)="openApi.getMenu(filtro)"
+        />
+        <i class="fa fa-search"></i>
+      </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2 nav-menu-siadci">
+      <ul
+        class="nav nav-sidebar flex-column"
+        data-widget="treeview"
+        role="menu"
+        data-accordion="true"
+      >
+        <li
+          class="nav-item has-treeview menu-close"
+          *ngFor="let menu of openApi.getMenuStatico(filtro)"
+        >
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-list-alt"></i>
+            <span class="txt-menu">
+              {{ menu.titulo }}
+            </span>
+          </a>
+
+          <ul class="nav nav-treeview submenu-siadci menu-close">
+            <li
+              *ngFor="let submenu of menu.submenu"
+              [routerLink]="[submenu.url]"
+              class="nav-link"
+            >
+              <i class="{{ submenu.icono }}"></i>
+              <p>
+                <a routerLinkActive="active">
+                  {{ submenu.titulo }}
+                </a>
+              </p>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <ul
+        class="nav nav-sidebar flex-column"
+        data-widget="treeview"
+        role="menu"
+        data-accordion="true"
+      >
+      <!--  <li class="nav-item has-treeview menu-close">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-list-alt"></i>
+            <span class="txt-menu">Catálogos</span>
+          </a>
+
+          <ul class="nav nav-treeview submenu-siadci menu-close">
+            <li
+              *ngFor="let menu of openApi.getMenu(filtro)"
+              class="nav-item has-treeview menu-close"
+            >
+              <ng-container *ngIf="menu.activo">
+                <a class="nav-link">
+                  <i class="nav-icon fas fa-folder"></i>
+                  <span class="right badge badge-danger">
+                    {{ menu.submenu.length }}
+                  </span>
+      -->
+                  <!-- <p> -->
+      <!--            <span> {{ menu.titulo }} </span>
+      -->
+                  <!-- </p> -->
+       <!--         </a>
+
+                <ul class="nav nav-treeview menu-close">
+                  <li
+                    *ngFor="let submenu of menu.submenu"
+                    [routerLink]="[submenu.url]"
+                    class="nav-link"
+                  >
+                    <i class="{{ submenu.icono }}"></i>
+                    <a routerLinkActive="active">
+                      {{ submenu.titulo }}
+                    </a>
+                  </li>
+                </ul>
+              </ng-container>
+            </li>
+          </ul>
+        </li> 
+    -->
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>

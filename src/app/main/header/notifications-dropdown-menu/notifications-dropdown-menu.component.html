@@ -1,0 +1,30 @@
+<li class="nav-item dropdown">
+  <a class="nav-link" (click)="toggleDropdownMenu()">
+    <img
+      class="icon-head bell"
+      src="../../../../assets/img/head-bell.png"
+      alt=""
+    />
+    <span class="right badge badge-warning"> </span>
+  </a>
+  <div
+    #dropdownMenu
+    class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-siadci">
+    <span class="dropdown-item dropdown-header">Notificaciones</span>
+    <div class="dropdown-divider"></div>
+    <a href="#" class="dropdown-item">
+      <i class="fas fa-file mr-2"></i> <!--4 nuevos documentos -->
+      <span class="float-right text-muted text-sm"><!--1 día --></span>
+    </a>
+    <div class="dropdown-divider"></div>
+    <a href="#" class="dropdown-item dropdown-footer">Ver todo</a>
+  </div>
+</li>
+
+<ng-template #notification>
+  <a href="#" class="dropdown-item">
+    <i class="fas fa-envelope mr-2"></i> 4 new messages
+    <span class="float-right text-muted text-sm">3 mins</span>
+  </a>
+  <div class="dropdown-divider"></div>
+</ng-template>

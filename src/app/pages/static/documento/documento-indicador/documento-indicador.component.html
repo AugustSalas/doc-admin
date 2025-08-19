@@ -1,0 +1,84 @@
+<section class="content-header header-siadci">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>Listado Indicadores por Documento</h1>
+            </div>
+            <div class="col-sm-6">
+                <h3>Indicador Documento</h3>
+            </div>
+            <div class="col-sm-6 text-right">
+                <a class="btn-siadci-without-line" [routerLink]="['/documentofisico/lista']">
+                    <i class="fas fa-th-large"></i>
+                    Ir a Listado Documento Físico
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+<section class="content content-sidci">
+    <div class="container-fluid">
+        <div class="siadci-content-wrapper pt-3">
+            <div style="
+          width: 95%;
+          overflow: auto;
+          margin-left: auto;
+          margin-right: auto;
+        ">
+                <div *ngIf="isLoading==true"
+                    style="width: 0vw; height: 50vh; margin-left: auto; margin-right: auto;  margin-top: auto; margin-bottom: auto;">
+                    <div style=" height: 30vh;  margin-top: auto; margin-bottom: auto;">
+
+                    </div>
+                    <mat-spinner></mat-spinner>
+                </div>
+
+                <div *ngIf="isLoading==false" style="width: 100%;">
+
+                    <div class="row" *ngIf="documentoFisico">
+                        <div class="col">Documento</div>
+                        <div class="col">Cadena folio:{{documentoFisico.cadenaFolio}}</div>
+                        <div class="col">Documento Original:{{documentoFisico.numeroDocumentoOriginal}}</div>
+                    </div>
+
+                    <div style="height: 20px;">
+                    </div>
+                    <div>
+                        <h3>Lista indicadores</h3>
+                    </div>
+                    <div style="height: 20px;">
+                    </div>
+
+                    <ng-container *ngFor="let documentoIndicador of IndicadoresDocumentoNuevos">
+                        <div style="height: 20px"></div>
+                        <div class="row">
+                            <div class="col-12">
+                                <h3 class="first">Indicador: {{ documentoIndicador.indicadorId.nombre }}</h3>
+
+                                <div class="row">
+                                    <div class="col-3">
+                                        <ng-container>
+                                            <p-selectButton [options]="options"
+                                                [(ngModel)]="documentoIndicador.indicador" required>
+                                            </p-selectButton>
+                                        </ng-container>
+                                    </div>
+                                <!--    <div class="col-9">Fecha: {{documentoIndicador.ctrlCreado |  date:'d/M/yy, h:mm a' }}</div>-->
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </ng-container>
+
+                    <div style="height: 50px;"></div>
+                    <button type="submit" class="btn-primary-siadci" (click)="guardarIndicadores()">
+                        <i class="fa fa-edit"></i> Guardar cambios
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

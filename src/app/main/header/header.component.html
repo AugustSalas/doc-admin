@@ -1,0 +1,36 @@
+<!-- Navbar -->
+<nav class="main-header-siadci">
+  <!-- Left navbar links -->
+  <ul class="navbar-nav-siadci">
+    <li class="nav-item">
+      <a class="nav-link" (click)="toggleMenuSidebar.emit()">
+        <i class="fas fa-bars fa-3x"></i>
+      </a>
+    </li>
+    <li class="nav-item d-none d-sm-inline-block">
+     <!-- <a [routerLink]="['/']" class="nav-link">Home</a> -->
+     <img src="../../../assets/img/logo-veracruz-1.png" alt="" class="logo-veracruz" >
+    </li>
+    <li class="nav-item d-none d-sm-inline-block">
+      <img src="../../../assets/img/logo-me-llena-de-orgullo.png" alt="" class="logo-veracruz2"  >
+    </li>
+    <li class="nav-item d-none d-sm-inline-block">
+      <img class="logo-main-siadci" src="../../../assets/img/siadci.jpg" alt="">
+    </li>
+  </ul>
+
+
+
+  <!-- Right navbar links -->
+  <ul class="navbar-nav-siadci ml-auto">
+    <!-- Messages Dropdown Menu -->
+   <!-- <app-messages-dropdown-menu></app-messages-dropdown-menu> -->
+    <!-- Notifications Dropdown Menu -->
+    <app-notifications-dropdown-menu></app-notifications-dropdown-menu>
+    <app-notifications-urgent-dropdown-menu></app-notifications-urgent-dropdown-menu>
+    <app-login-dropdown></app-login-dropdown>
+
+  </ul>
+</nav>
+<!-- /.navbar -->
+<div class="siadci-footer-head"></div>

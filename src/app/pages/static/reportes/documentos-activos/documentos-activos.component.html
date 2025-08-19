@@ -1,0 +1,87 @@
+<section class="content-header header-siadci">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>Reporte documentos activos</h1>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content content-sidci">
+  <!-- Default box -->
+  <div class="container-fluid">
+    <!-- <div class="siadci-content-wrapper pt-3"> -->
+
+
+      <div class="siadci-content-wrapper">
+        <!-- <div class="container-fluid"> -->
+          <form [formGroup]="formGroup">
+            <div class="box-body">
+              <ng-template matStepLabel>Formulario</ng-template>
+
+              <div class="row mx-4 py-3">
+                <div class="section-siadci col-sm-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Fecha inicio</mat-label>
+                    <input
+                      matInput
+                      [matDatepicker]="pickerInicio"
+                      formControlName="fechaInicio"
+                    />
+                    <mat-datepicker-toggle matSuffix [for]="pickerInicio">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #pickerInicio> </mat-datepicker>
+                    <mat-error *ngIf="f['fechaInicio'].hasError('required')">
+                      <strong>Este valor </strong> es requerido.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="section-siadci col-sm-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Fecha final</mat-label>
+                    <input
+                      matInput
+                      [matDatepicker]="pickerFinal"
+                      formControlName="fechaFinal"
+                    />
+                    <mat-datepicker-toggle matSuffix [for]="pickerFinal">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #pickerFinal> </mat-datepicker>
+                    <mat-error *ngIf="f['fechaFinal'].hasError('required')">
+                      <strong>Este valor </strong> es requerido.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="box-footer-siadci">
+            <button
+              class="btn-primary-siadci"
+              (click)="Pdf()">Vista Previa</button>
+            </div>
+          </form>
+
+          <div style="height: 50px"></div>
+
+          <div *ngIf="pdfFormart != null">
+            <ngx-extended-pdf-viewer
+              [src]="pdfFormart"
+              useBrowserLocale="true"
+              height="80vh"
+            >
+            </ngx-extended-pdf-viewer>
+          </div>
+
+          <!-- /.row -->
+        <!-- </div> -->
+      </div>
+      <!-- /.siadci-content-wrapper -->
+    <!-- </div> -->
+  </div>
+  <!-- /.card -->
+</section>
+<!-- /.content -->

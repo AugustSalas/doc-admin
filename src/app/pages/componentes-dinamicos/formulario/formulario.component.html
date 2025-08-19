@@ -1,0 +1,157 @@
+<!-- Content Header (Page header) -->
+<section class="content-header header-siadci">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>Formulario de {{NombreClaseSplit.toLowerCase()}}</h1>
+      </div>
+      <div class="col-sm-6">
+        <h3>{{NombreClaseSplit}}</h3>
+      </div>
+      <div class="col-sm-6 text-right">
+        <a
+          class="btn-siadci-without-line"
+          (click)="IrListado()">
+          Ir listado {{NombreClase}}
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content content-sidci">
+  <!-- Default box -->
+  <div class="container-fluid">
+    <div class="card">
+      <!-- <div class="card-header">
+
+      </div> -->
+      <div class="card-body">
+        <div style="width: 95%; margin-left: auto; margin-right: auto;">
+
+          <div style="text-align: right">
+
+          </div>
+
+          <p></p>
+
+          <ng-container *ngIf=" formGroup !=null" >
+
+            <form [formGroup]="formGroup">
+              <div class="row">
+
+                <div *ngFor="let propiedad of  ListadoClaseCompleto " [class]="TipoColumna(propiedad)"
+                  [ngSwitch]="TipoFormulario(propiedad)">
+
+                  <div style="display: flex;">
+
+                    <ng-container *ngSwitchCase="'boolean'">
+
+                      <div style="margin-left: auto; margin-right: auto;">
+                        <mat-slide-toggle [checked]="this.edicionRegistro[propiedad]" >
+                          {{this.apiService.camelCaseToTitleCase( propiedad )}}
+                        </mat-slide-toggle>
+                      </div>
+
+
+                    </ng-container>
+
+
+                    <ng-container *ngSwitchCase="'string'">
+
+                      <ng-container [ngSwitch]="TipoFormularioFormato(propiedad)">
+
+
+                        <ng-container *ngSwitchCase="'date-time'">
+
+                          <mat-form-field>
+                            <mat-label>{{this.apiService.camelCaseToTitleCase( propiedad )}}</mat-label>
+                            <input matInput [matDatepicker]="picker" [formControlName]="propiedad"
+                              (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
+                            <mat-datepicker-toggle matSuffix [for]="picker" (change)="fechaCambio($event)">
+                            </mat-datepicker-toggle>
+                            <mat-datepicker #picker (change)="fechaCambio($event)"></mat-datepicker>
+                            <mat-error *ngIf="f[propiedad].hasError('required')">
+                              <strong>Este valor </strong> es requerido.
+                            </mat-error>
+                          </mat-form-field>
+
+                        </ng-container>
+
+                        <ng-container *ngSwitchDefault>
+                          <mat-form-field appearance="outline" class="w100-container">
+                            <mat-label>{{this.apiService.camelCaseToTitleCase( propiedad )}}</mat-label>
+
+                            <input matInput type="text" placeholder="" [formControlName]="propiedad">
+
+                            <mat-error *ngIf="f[propiedad].hasError('required')">
+                              <strong>Este valor </strong> es requerido.
+                            </mat-error>
+                          </mat-form-field>
+                        </ng-container>
+
+                      </ng-container>
+
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="'integer'">
+                      <mat-form-field appearance="outline" class="w100-container">
+                        <mat-label>{{this.apiService.camelCaseToTitleCase( propiedad )}}</mat-label>
+                        <input matInput type="number" placeholder="" [formControlName]="propiedad">
+                        <mat-error *ngIf="f[propiedad].hasError('required')">
+                          <strong>Este valor </strong> es requerido.
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="'Object'">
+
+                      <app-dropdown #selectCategoria [rutaClase]="BuscarRutaClase(propiedad)" [nombreCampo]="propiedad"
+                        [valor]="edicionRegistro[propiedad]" (editControl)=" f[propiedad].setValue($event)"
+                        style="width: 100%;">
+                      </app-dropdown>
+
+                    </ng-container>
+
+                    <ng-container *ngSwitchDefault>
+                      <mat-form-field appearance="outline" class="w100-container">
+                        <mat-label>{{this.apiService.camelCaseToTitleCase( propiedad )}}</mat-label>
+
+                        <input matInput type="text" placeholder="" [formControlName]="propiedad">
+
+                        <mat-error *ngIf="f[propiedad].hasError('required')">
+                          <strong>Este valor </strong> es requerido.
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-container>
+
+                  </div>
+
+                </div>
+              </div>
+
+            </form>
+
+          </ng-container>
+
+
+
+        </div>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer">
+        <div style="margin-left: 3%;">
+          <button pButton (click)="Guardar()" type="button" icon="pi pi-save" label="Guardar" *ngIf="isSave"></button>
+
+          <button pButton (click)="Guardar()" type="button" icon="pi pi-save" label="Guardar" *ngIf="!isSave"></button>
+
+        </div>
+      </div>
+      <!-- /.card-footer-->
+    </div>
+  </div>
+  <!-- /.card -->
+</section>
+<!-- /.content -->

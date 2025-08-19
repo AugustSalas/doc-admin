@@ -1,0 +1,78 @@
+<section class="content-header header-siadci">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>Listado de documentos</h1>
+            </div>
+            <div class="col-sm-6">
+                <h3>Muestra los registros de documentos</h3>
+            </div>
+            <div class="col-sm-6 text-right">
+                <button routerLink="/documento/formulario/new" class="btn-primary-siadci">
+                    <i class="fa fa-plus"></i> Agregar
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content content-sidci">
+    <!-- Default box -->
+    <div class="container-fluid">
+        <div class="card-siadci py-4">
+            <!-- <div class="card-body"> -->
+            <div style="  width: 85%;  overflow: auto;  margin-left: auto;  margin-right: auto; ">
+
+
+
+
+                <mat-horizontal-stepper class="siadci-stepper" [linear]="isLinear" #stepper>
+                    <mat-step>
+
+                        <label for="">tamaño</label>
+                        <p-dropdown [options]="sizes" [(ngModel)]="size">
+                        </p-dropdown>
+                        <label for="">orientación</label>
+                        <p-dropdown [options]="orientaciones" [(ngModel)]="orientacion">
+                        </p-dropdown>
+
+                        <form [formGroup]="firstFormGroup">
+                            <ng-template matStepLabel>Editor</ng-template>
+
+                            <ckeditor #editor [config]="editorConfig" [editor]="Editor" [data]="htmlContent"
+                                [(ngModel)]="htmlContent"></ckeditor>
+
+                            <div>
+                                <button class="btn-secondary-siadci" (click)="Guardar()">Vista previa</button>
+                            </div>
+
+
+                        </form>
+                    </mat-step>
+
+                    <mat-step>
+                        <form [formGroup]="secondFormGroup">
+                            <ng-template matStepLabel>Vista previa</ng-template>
+
+                            <div *ngIf="pdfFormart != null">
+                                <ngx-extended-pdf-viewer [src]="pdfFormart" useBrowserLocale="true" height="80vh">
+                                </ngx-extended-pdf-viewer>
+                            </div>
+
+
+                        </form>
+                    </mat-step>
+
+                </mat-horizontal-stepper>
+            </div>
+
+            <div>Importante: dentro del documento, escribe "folio_numero" en donde aparecera el folio una vez guardado el
+                documento</div>
+
+        </div>
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->

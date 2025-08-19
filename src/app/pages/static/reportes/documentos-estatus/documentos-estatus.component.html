@@ -1,0 +1,100 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Reporte documentos estatus</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Reportes</a></li>
+                    <li class="breadcrumb-item active">Documentos estatus</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Documentos estatus</h3>
+
+                <div class="card-tools">
+                    <!--   <button pButton type="button" icon="pi pi-list" label="pathRegresoMensaje"
+                        routerLink="pathRegreso"></button> -->
+                </div>
+            </div>
+
+            <div class="card-body">
+
+                <div class="container-fluid">
+
+                    <form [formGroup]="formGroup">
+                        <ng-template matStepLabel>Formulario</ng-template>
+
+                        <div class="row">
+
+                            <div class="col-sm-3">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Fecha inicio</mat-label>
+                                    <input matInput [matDatepicker]="pickerInicio" formControlName="fechaInicio">
+                                    <mat-datepicker-toggle matSuffix [for]="pickerInicio">
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #pickerInicio>
+                                    </mat-datepicker>
+                                    <mat-error *ngIf="f['fechaInicio'].hasError('required')">
+                                        <strong>Este valor </strong> es requerido.
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Fecha final</mat-label>
+                                    <input matInput [matDatepicker]="pickerFinal" formControlName="fechaFinal">
+                                    <mat-datepicker-toggle matSuffix [for]="pickerFinal">
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #pickerFinal>
+                                    </mat-datepicker>
+                                    <mat-error *ngIf="f['fechaFinal'].hasError('required')">
+                                        <strong>Este valor </strong> es requerido.
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+                        <button mat-raised-button (click)="Pdf()">
+                            Vista Previa
+                        </button>
+
+                    </form>
+
+                    <div style="height: 50px;"></div>
+
+
+                    <div *ngIf="pdfFormart!=null ">
+                        <ngx-extended-pdf-viewer [src]="pdfFormart" useBrowserLocale="true" height="80vh">
+                        </ngx-extended-pdf-viewer>
+                    </div>
+
+                    <!-- /.row -->
+                </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <div style="margin-left: 3%;">
+
+                </div>
+            </div>
+            <!-- /.card-footer-->
+        </div>
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->

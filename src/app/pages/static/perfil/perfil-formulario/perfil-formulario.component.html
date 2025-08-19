@@ -1,0 +1,115 @@
+<section class="content-header header-siadci">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>Formulario Perfil</h1>
+            </div>
+            <div class="col-sm-6">
+                <h3>Perfil</h3>
+              </div>
+            <div class="col-sm-6 text-right">
+                <a class="btn-siadci-without-line" [routerLink]="['/perfil/lista']">
+                    <i class="fas fa-th-large"></i>
+                    Ir a Perfil</a
+                  >
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+<section class="content content-sidci">
+    <div class="container-fluid">
+        <div class="siadci-content-wrapper">
+
+            <div class="box-body">
+                <div class="container-fluid">
+
+                    <form #f="ngForm">
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" [(ngModel)]="perfil.perfilId" name="perfilId">
+                        </div>
+                        <div class="row mx-4 py-3">
+                            <div class="section-siadci py-3 col-12">
+                              <mat-form-field appearance="outline" style="width: 100%">
+                                <mat-label>Nombre</mat-label>
+                                <input
+                                    matInput 
+                                    type="text" 
+                                    placeholder="Nombre" 
+                                    name="nombre" 
+                                    [(ngModel)]="perfil.nombre" 
+                                    required
+                                    class="form-control"/>
+                                </mat-form-field>
+                        </div>
+                    
+
+                            <div class="section-siadci py-3 col-12">
+                                    <mat-form-field appearance="outline" style="width: 100%">
+                                    <mat-label>Descripción</mat-label>
+                                <textarea 
+                                    matInput
+                                    type="text" 
+                                    name="descripcion" 
+                                    [(ngModel)]="perfil.descripcion" required
+                                    class="form-control">
+                                 </textarea>
+                        </mat-form-field>
+
+                        </div>
+                    </div>
+                    </form>
+
+                    <p></p>
+
+                    <div class="row">
+
+                        <div class="col">
+                            <h3>Asignación de derechos</h3>
+
+                            <button class="btn-primary-siadci" (click)="selectAll()">
+                                <i class="fa fa-check"></i> Seleccionar todos
+                            </button>
+
+                            <button (click)="UncheckTree()" 
+                                    class="btn-primary-siadci">
+                                <i class="fa fa-edit"></i> Quitar todos
+                            </button>
+
+                            <p-tree #expandingTree [filter]="true" [value]="listaDerecho" selectionMode="checkbox"
+                                [(selection)]="listaDerechoSelecionados" (onNodeSelect)="derechoChange()"
+                                [loading]="loading" [style]="{width: 'fit-content'}" (onNodeUnselect)="derechoChange()">
+                                <ng-template let-node pTemplate="default">
+                                    <div [pTooltip]=" BuscarDescripcionEndPoint(node.data.ruta,node.data.metodo) "
+                                        tooltipPosition="top" *ngIf="node.data!='raiz'">{{node.label}}</div>
+                                    <div *ngIf="node.data=='raiz'">{{node.label}}</div>
+                                </ng-template>
+                            </p-tree>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card-footer">
+
+                <button *ngIf="isSave" 
+                        (click)="guardarPerfil(f)" 
+                        class="btn-primary-siadci">
+                        <i class="fa fa-save">
+                        </i> Agregar
+                </button>
+
+                <button *ngIf="!isSave" 
+                        (click)="guardarPerfil(f)" 
+                        class="btn btn-primary">
+                        <i class="fa fa-edit">             
+                        </i> Guardar cambios
+                </button>
+            </div>
+        </div>
+    </div>
+</section>

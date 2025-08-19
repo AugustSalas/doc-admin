@@ -1,0 +1,463 @@
+<section class="content-header header-siadci">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>Formulario de documento</h1>
+      </div>
+      <div class="col-sm-6">
+        <h3>Documento</h3>
+      </div>
+      <div class="col-sm-6 text-right">
+        <a class="btn-siadci-without-line" [routerLink]="pathRegreso">
+          <i class="fas fa-th-large"></i>
+          {{ pathRegresoMensaje }}
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content content-sidci">
+  <!-- Default box -->
+  <div class="container-fluid">
+    <div class="container-fluid pt-3">
+      <!-- Small boxes (Stat box) -->
+      <mat-horizontal-stepper
+        class="siadci-stepper"
+        [linear]="isLinear"
+        #stepper>
+        <mat-step [stepControl]="formGroup">
+          <ng-container *ngIf="ClaseEnpoint != null">
+            <form [formGroup]="formGroup">
+              <ng-template matStepLabel>Formulario</ng-template>
+              <p-toolbar>
+                <mat-slide-toggle
+                  class="margin20"
+                  [color]="color"
+                  [(checked)]="edicionRegistro.firmado"
+                  disabled="true"
+                  formControlName="firmado"
+                >
+                  Firmado
+                </mat-slide-toggle>
+                <mat-slide-toggle
+                  class="margin20"
+                  [color]="color"
+                  [(checked)]="edicionRegistro.requiereRespuesta"
+                  [disabled]="disabled"
+                  formControlName="requiereRespuesta"
+                >
+                  ¿Requiere respuesta?
+                </mat-slide-toggle>
+              </p-toolbar>
+              <p></p>
+              <p-fieldset
+                legend="Seleccionar"
+                [toggleable]="true"
+                style="width: 95%"
+              >
+                <div class="row clear-siadci">
+                  <div class="col">
+                    <app-dropdown
+                      #tipoDocumento
+                      rutaClase="#/components/schemas/TipoDocumento"
+                      [nombreCampo]="'tipoDocumentoId'"
+                      nombreClase="Tipo documento"
+                      [valor]="edicionRegistro['tipoDocumentoId']"
+                      [valorId]="1"
+                      placeholder="Seleccionar"
+                      (editControl)="tipoDocumentoChange($event)"
+                      style="width: 100%"
+                    >
+                    </app-dropdown>
+                  </div>
+                  <div class="col">
+                    <app-dropdown
+                      rutaClase="#/components/schemas/Prioridad"
+                      [nombreCampo]="'prioridadId'"
+                      [valor]="edicionRegistro['prioridadId']"
+                      [valorId]="1"
+                      placeholder="Seleccionar"
+                      (editControl)="f['prioridadId'].setValue($event)"
+                      style="width: 100%"
+                    >
+                    </app-dropdown>
+                  </div>
+                  <div class="col">
+                    <app-dropdown
+                      rutaClase="#/components/schemas/TipoPrivacidad"
+                      [nombreCampo]="'tipoPrivacidadId'"
+                      [valor]="edicionRegistro['tipoPrivacidadId']"
+                      [valorId]="1"
+                      placeholder="Selecciona el tipo de"
+                      nombreClase="Privacidad"
+                      (editControl)="f['tipoPrivacidadId'].setValue($event)"
+                      style="width: 100%"
+                    >
+                    </app-dropdown>
+                  </div>
+                  <div class="col">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Fecha limite de respuesta</mat-label>
+                      <input
+                        matInput
+                        [matDatepicker]="picker"
+                        formControlName="fechaLimiteRespuesta"
+                      />
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker"
+                        (change)="fechaCambio($event)"
+                      >
+                      </mat-datepicker-toggle>
+                      <mat-datepicker
+                        #picker
+                        (change)="fechaCambio($event)"
+                      >
+                      </mat-datepicker>
+                      <mat-error
+                        *ngIf="
+                          f['fechaLimiteRespuesta'].hasError('required')
+                        "
+                      >
+                        <strong>Este valor </strong> es requerido.
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </p-fieldset>
+
+              <p></p>
+
+              <p-fieldset
+                legend="Destinos"
+                [toggleable]="true"
+                style="width: 95%"
+              >
+                <div *ngIf="f.tipoDocumentoId.value">
+                  <div class="row clear-siadci">
+                    <div class="col">
+                      <h4><span class="rounded-pill">Funcionario</span></h4>
+                    </div>
+
+                    <div class="col">
+                      <h4><span class="rounded-pill">Contacto</span></h4>
+                    </div>
+
+                    <div class="col">
+                      <h4><span class="rounded-pill">Grupo</span></h4>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col">
+                      <mat-form-field
+                        class="mod-chip-list"
+                        appearance="outline"
+                      >
+                        <label> Destinatarios</label>
+
+                        <div style="display: flex">
+                          <div  class="search-content-siadci">
+                            <button
+                              pButton
+                              (click)="
+                                openDialog(
+                                  this.destinatarios,
+                                  'Destinatarios'
+                                )
+                              "
+                              type="button"
+                              icon="pi pi-search"
+                              class="ui-button-siadci"
+                            ></button>
+                          </div>
+
+                          <mat-chip-list #chipListDest>
+                            <mat-chip
+                              *ngFor="let destinatario of destinatarios"
+                              [selectable]="selectable"
+                              [removable]="removable"
+                              (removed)="removeDestinatario(destinatario)"
+                              [ngClass]="destinatario.color"
+                              selected
+                            >
+                              {{ destinatario.nombre }}
+                              <mat-icon matChipRemove *ngIf="removable"
+                                >cancel
+                              </mat-icon>
+                            </mat-chip>
+                            <input
+                              [matChipInputFor]="chipListDest"
+                              [matChipInputSeparatorKeyCodes]="
+                                separatorKeysCodes
+                              "
+                              [matChipInputAddOnBlur]="addOnBlur"
+                              (matChipInputTokenEnd)="
+                                addDetinatario($event)
+                              "
+                              disabled
+                            />
+                          </mat-chip-list>
+                        </div>
+                      </mat-form-field>
+
+                      <div *ngIf="this.destinatarios.length < 1">
+                        <strong>Este valor </strong> es requerido.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col">
+                      <mat-form-field
+                        class="mod-chip-list"
+                        appearance="outline"
+                      >
+                        <label> CPP</label>
+
+                        <div style="display: flex">
+                          <div class="search-content-siadci">
+                            <button
+                              pButton
+                              (click)="openDialog(this.Cpp, 'CPP')"
+                              type="button"
+                              icon="pi pi-search"
+                              class="ui-button-siadci"
+                            ></button>
+                          </div>
+
+                          <mat-chip-list #chipListCPP>
+                            <mat-chip
+                              *ngFor="let copia of Cpp"
+                              [selectable]="selectable"
+                              [removable]="removable"
+                              (removed)="removeCpp(copia)"
+                              [ngClass]="copia.color"
+                              selected
+                            >
+                              {{ copia.nombre }}
+                              <mat-icon matChipRemove *ngIf="removable"
+                                >cancel
+                              </mat-icon>
+                            </mat-chip>
+                            <input
+                              [matChipInputFor]="chipListCPP"
+                              [matChipInputSeparatorKeyCodes]="
+                                separatorKeysCodes
+                              "
+                              [matChipInputAddOnBlur]="addOnBlur"
+                              (matChipInputTokenEnd)="addCpp($event)"
+                            />
+                          </mat-chip-list>
+                        </div>
+                      </mat-form-field>
+
+                      <!--  <div *ngIf="this.Cpp.length<1">
+                                    <strong>Este valor </strong> es requerido.
+                                </div> -->
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="!f.tipoDocumentoId.value">
+                  Seleccionar tipo de oficio
+                </div>
+              </p-fieldset>
+
+              <p></p>
+
+              <p-fieldset
+                legend="Redacción"
+                [toggleable]="true"
+                style="width: 95%"
+              >
+                <div class="row clear-siadci">
+                  <div class="col">
+                    <mat-form-field
+                      appearance="outline"
+                      class="w100-container"
+                    >
+                      <mat-label>asunto</mat-label>
+
+                      <input
+                        matInput
+                        type="text"
+                        placeholder=""
+                        formControlName="asunto"
+                      />
+
+                      <mat-error *ngIf="f['asunto'].hasError('required')">
+                        <strong>Este valor </strong> es requerido.
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col">
+                    <mat-form-field
+                      appearance="outline"
+                      class="w100-container"
+                    >
+                      <mat-label> Folio</mat-label>
+
+                      <input
+                        matInput
+                        type="text"
+                        placeholder=""
+                        formControlName="cadenaFolio"
+                      />
+
+                      <mat-error
+                        *ngIf="f['cadenaFolio'].hasError('required')"
+                      >
+                        <strong>Este valor </strong> es requerido.
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <mat-form-field
+                      appearance="outline"
+                      class="w100-container"
+                    >
+                      <mat-label>Contenido</mat-label>
+
+                      <p style="height: 20px"></p>
+
+                      <p-editor
+                        formControlName="contenido"
+                        [(ngModel)]="this.edicionRegistro.contenido"
+                        [style]="{ height: 'max-content' }"
+                      >
+                      </p-editor>
+
+                      <textarea
+                        matInput
+                        formControlName="contenido"
+                        style="min-height: 100px; height: max-content"
+                        style="display: none"
+                        [(value)]="this.edicionRegistro.contenido"
+                        required
+                      >
+                      </textarea>
+
+                      <mat-error
+                        *ngIf="f['contenido'].hasError('required')"
+                      >
+                        <strong>Este valor </strong> es requerido.
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <mat-form-field
+                      appearance="outline"
+                      class="w100-container"
+                    >
+                      <mat-label>Instrucciones</mat-label>
+
+                      <p style="height: 20px"></p>
+
+                      <p-editor
+                        formControlName="instrucciones"
+                        [(ngModel)]="this.edicionRegistro.instrucciones"
+                        [style]="{ height: 'max-content' }"
+                      >
+                      </p-editor>
+
+                      <textarea
+                        matInput
+                        formControlName="instrucciones"
+                        style="min-height: 100px; height: max-content"
+                        style="display: none"
+                        [(value)]="this.edicionRegistro.instrucciones"
+                      >
+                      </textarea>
+
+                      <mat-error
+                        *ngIf="f['instrucciones'].hasError('required')"
+                      >
+                        <strong>Este valor </strong> es requerido.
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </p-fieldset>
+
+              <p></p>
+
+              <p-fieldset
+                legend="Adjuntos"
+                [toggleable]="true"
+                style="width: 95%"
+              >
+                <div class="row clear-siadci" *ngIf="imagenLoading">
+                  <div
+                    class="col-12"
+                    style="margin-left: 40%; margin-right: 50%"
+                  >
+                    <p-progressSpinner></p-progressSpinner>
+                  </div>
+                </div>
+
+                <app-documento-base64 [listaAnexos]="ListaAnexo64">
+                </app-documento-base64>
+              </p-fieldset>
+
+              <p></p>
+
+              <button class="btn-secondary-siadci" (click)="Pdf()">
+                Vista previa
+              </button>
+            </form>
+          </ng-container>
+        </mat-step>
+        <mat-step>
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Vista previa</ng-template>
+
+            <div *ngIf="pdfFormart != null">
+              <ngx-extended-pdf-viewer
+                [src]="pdfFormart"
+                useBrowserLocale="true"
+                height="80vh"
+              >
+              </ngx-extended-pdf-viewer>
+            </div>
+
+            <!--    <button mat-raised-button (click)="Guardar()">
+                  guardar
+              </button> -->
+
+            <button mat-raised-button (click)="GuardarAnexo()">
+              guardar
+            </button>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Guardado</ng-template>
+          <div *ngIf="pdfFinal != null">
+            <ngx-extended-pdf-viewer
+              [src]="pdfFinal"
+              useBrowserLocale="true"
+              height="80vh"
+            >
+            </ngx-extended-pdf-viewer>
+          </div>
+          <div>
+            <button mat-button matStepperPrevious>Regresar</button>
+            <button mat-button (click)="stepper.reset()">Limpiar</button>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+      <!-- /.row -->
+    </div>
+  </div>
+</section>
+<!-- /.content -->

@@ -1,0 +1,166 @@
+<section class="content-header header-siadci">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>Archivos acuses  
+                </h1>
+            </div>
+            <div class="col-sm-6">
+                <h3>Acuse {{folio}}</h3>
+            </div>
+            <!--<div class="col-sm-6 text-right">
+          <a class="btn-siadci-without-line"  [routerLink]="['/turnos/lista']">
+            <i class="fas fa-th-large"></i>
+            Ir a listado Turno Recibidos
+          </a>
+        </div>-->
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+
+<section class="content content-sidci">
+    <mat-dialog-content>
+        <!-- Default box -->
+        <div class="container-fluid">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="row" *ngIf="isLoading==false">
+                        <div class="col-4" style="width: 300px; margin-left: auto; margin-right: auto;">
+
+                            <mat-list>
+                                <mat-list-item *ngFor="let message of listadoFisicos">
+
+                                    <div
+                                        style="padding: 5px; margin-top:15px; display: flex; text-overflow: clip; overflow: hidden;">
+                                        <ng-container [ngSwitch]="message.acuseDocumentoFisico.mime">
+
+                                            <ng-container *ngSwitchCase="'image/jpeg' || 'image/png' || 'image/jpg'">
+
+                                                <button mat-mini-fab style="background-color:peru; margin-right: 10px;"
+                                                    (click)="downloadFile(message.base64, message.acuseDocumentoFisico.nombre )">
+                                                    <mat-icon matListIcon [inline]="true">image</mat-icon>
+                                                </button>
+
+                                                <h3 style="cursor: pointer;" matLine
+                                                    (click)="archivo =message.base64; mime=message.acuseDocumentoFisico.mime; pdfFormart=null; nombreArchivo = message.acuseDocumentoFisico.nombre">
+                                                    {{message.acuseDocumentoFisico.nombre}} </h3>
+                                                <mat-divider></mat-divider>
+
+                                            </ng-container>
+
+                                            <ng-container *ngSwitchCase="'application/pdf'">
+
+                                                <button mat-mini-fab style="background-color:peru; margin-right: 10px;"
+                                                    (click)="downloadFile(message.base64, message.acuseDocumentoFisico.nombre )">
+                                                    <mat-icon [inline]="true" matListIcon>picture_as_pdf</mat-icon>
+                                                </button>
+
+                                                <h3 matLine style="cursor: pointer;"
+                                                    (click)="archivo =null; mime=message.acuseDocumentoFisico.mime; pdfFormart=message.base64 ; nombreArchivo = message.acuseDocumentoFisico.nombre">
+                                                    {{message.acuseDocumentoFisico.nombre}} </h3>
+                                                <mat-divider></mat-divider>
+
+                                            </ng-container>
+
+                                            <ng-container *ngSwitchDefault>
+                                                <button mat-mini-fab style="background-color:peru; margin-right: 10px;"
+                                                    (click)="downloadFile(message.base64, message.acuseDocumentoFisico.nombre )">
+                                                    <mat-icon matListIcon>cloud_download</mat-icon>
+                                                </button>
+                                                <h3 matLine> {{message.acuseDocumentoFisico.nombre}} </h3>
+                                                <mat-divider></mat-divider>
+
+                                            </ng-container>
+
+                                        </ng-container>
+                                    </div>
+
+
+                                </mat-list-item>
+                            </mat-list>
+
+                        </div>
+
+                        <div class="col-8" style="width: 80%;  margin-left: auto; margin-right: auto;">
+                            <div>
+                                <div *ngIf="pdfFormart!=null ">
+                                    <ngx-extended-pdf-viewer [src]="pdfFormart" useBrowserLocale="true" height="80vh">
+                                    </ngx-extended-pdf-viewer>
+                                </div>
+
+                                <ng-container *ngIf="archivo!=null">
+                                    <div class="col-3" [ngSwitch]="mime">
+
+                                        <ng-container>
+                                            <div *ngSwitchCase="'image/png' || 'image/jpg' ">
+                                                <img [src]="archivo" height="400vh"> <br>
+
+                                                <div class="row">
+                                                    <div class="col">
+                                                        {{nombreArchivo}}
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div *ngSwitchCase=" 'image/jpeg' ">
+                                                <img [src]="archivo" height="400vh"> <br>
+
+                                                <div class="row">
+                                                    <div class="col">
+                                                        {{nombreArchivo}}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div *ngSwitchDefault style=" margin-top: 10px;">
+                                                <i class="fas fa-file fa-6x"></i>
+
+                                                <div class="row">
+                                                    <div class="col">
+                                                        {{nombreArchivo}}
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </ng-container>
+
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <button (click)="downloadFile(archivo, nombreArchivo)"
+                                            class="btn-primary-siadci">
+                                            <i class="fa fa-download icon-blue"></i>
+                                        </button>
+
+                                    </div>
+                                </ng-container>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div *ngIf="isLoading==true"
+                        style="width: 0vw; height: 50vh; margin-left: auto; margin-right: auto;  margin-top: auto; margin-bottom: auto;">
+                        <div style=" height: 30vh;  margin-top: auto; margin-bottom: auto;">
+
+                        </div>
+                        <mat-spinner></mat-spinner>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </mat-dialog-content>
+</section>

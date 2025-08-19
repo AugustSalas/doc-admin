@@ -1,0 +1,87 @@
+<section class="content-header header-siadci">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>Visor Turnos Cerrados Recibidos
+          </h1>
+        </div>
+        <div class="col-sm-6">
+          <h3>Muestra Turnos Cerrados Recibidos</h3>
+        </div>
+        <!--<div class="col-sm-6 text-right">
+          <a class="btn-siadci-without-line"  [routerLink]="['/turnos/listaCR']">
+            <i class="fas fa-th-large"></i>
+            Ir a listado Turnos Cerrados Recibidos
+          </a>
+        </div>-->
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  
+  
+  <section class="content content-sidci">
+    <!-- Default box -->
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-body">
+  
+          <div *ngIf="pdfFormart!=null ">
+            <ngx-extended-pdf-viewer [src]="pdfFormart" useBrowserLocale="true" height="80vh">
+            </ngx-extended-pdf-viewer>
+          </div>
+  
+          <ng-container *ngIf="archivo!=null">
+            <div class="col-3" [ngSwitch]="mime">
+  
+              <ng-container>
+                <div *ngSwitchCase="'image/png' || 'image/jpg' ">
+                  <img [src]="archivo" height="100%"> <br>
+  
+                  <div class="row">
+                    <div class="col">
+                      {{nombreArchivo}}
+                    </div>
+  
+                  </div>
+                </div>
+  
+                <div *ngSwitchCase=" 'image/jpeg' ">
+                  <img [src]="archivo" height="100%"> <br>
+  
+                  <div class="row">
+                    <div class="col">
+                      {{nombreArchivo}}
+                    </div>
+                  </div>
+                </div>
+  
+                <div *ngSwitchDefault style=" margin-top: 10px;">
+                  <i class="fas fa-file fa-6x"></i>
+  
+                  <div class="row">
+                    <div class="col">
+                      {{nombreArchivo}}
+                    </div>
+                  </div>
+  
+                </div>
+  
+              </ng-container>
+  
+  
+            </div>
+  
+            <div class="row">
+  
+              <button (click)="downloadFile(archivo, nombreArchivo)" class="btn-primary-siadci" >
+                <i class="fa fa-download icon-blue"></i>
+              </button>
+  
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </section>
+  

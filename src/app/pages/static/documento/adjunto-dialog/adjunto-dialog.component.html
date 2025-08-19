@@ -1,0 +1,42 @@
+<section class="content-header header-siadci">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>Archivos Adjuntos
+                </h1>
+            </div>
+            <div class="col-sm-6">
+                <h3>Adjuntos {{folio}}</h3>
+            </div>
+            <!--<div class="col-sm-6 text-right">
+          <a class="btn-siadci-without-line"  [routerLink]="['/turnos/lista']">
+            <i class="fas fa-th-large"></i>
+            Ir a listado Turno Recibidos
+          </a>
+        </div>-->
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+
+<section class="content content-sidci">
+    <mat-dialog-content>
+        <!-- Default box -->
+        <div class="container-fluid">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <app-documento-base64 [listaDocumentoFisico]="ListaAnexo64" label="Selecciona los archivos anexos">
+                    </app-documento-base64>
+
+
+                    <div class="col">
+                        <button class="btn-secondary-siadci" (click)="GuardarAnexo()">Guardar</button>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </mat-dialog-content>
+</section>

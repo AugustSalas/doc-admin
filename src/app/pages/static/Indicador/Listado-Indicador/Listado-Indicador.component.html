@@ -1,0 +1,136 @@
+<section class="content-header header-siadci">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>Listado Indicador</h1>
+        </div>
+        <div class="col-sm-6">
+          <h3>Muestra los registros del Indicador</h3>
+        </div>
+        <div class="col-sm-6 text-right">
+          <button routerLink="/indicador/crear/new" class="btn-primary-siadci">
+            <i class="fa fa-plus"></i> Agregar
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <section class="content content-sidci">
+    <!-- Default box -->
+    <div class="container-fluid">
+      <div class="card-siadci py-4">
+        <div
+          style="
+            width: 95%;
+            overflow: auto;
+            margin-left: auto;
+            margin-right: auto;
+          "
+        >
+          <div class="table-siadci" [style.width]="Ancho" >
+            <p-table
+              #dt
+              class="ng2-smart-table"
+              [columns]="cols"
+              [value]="data"
+              paginator="true"
+              [rows]="10"
+            >
+              <ng-template pTemplate="caption">
+                <!-- <div style="text-align: left">
+                  <i class="fa fa-search" style="margin: 4px 4px 0 0"></i>
+                  <input
+                    type="text"
+                    pInputText
+                    size="100"
+                    placeholder="Filtro global"
+                    (input)="dt.filterGlobal($event.target.value, 'contains')"
+                    style="width: auto"
+                  />
+                </div> -->
+                <div class="search-wrapper-siadci d-flex">
+                  <input
+                    type="text"
+                    pInputText
+                    placeholder="Filtro global"
+                    class="search-input"
+                    (input)="dt.filterGlobal($event.target.value, 'contains')"
+                  />
+                  <i class="fa fa-search"></i>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                    {{ col.header }}
+                    <p-sortIcon
+                      [field]="col.field"
+                      [pSortableColumn]="col.field"
+                    ></p-sortIcon>
+  
+                    <input
+                      *ngSwitchCase="'nombre'"
+                      pInputText
+                      type="text"
+                      placeholder="Contiene"
+                      class="ui-column-filter"
+                      style="width: 100%"
+                      (input)="
+                        dt.filter($event.target.value, col.field, 'contains')
+                      "
+                    />
+  
+                    <input
+                      *ngSwitchCase="'descripcion'"
+                      pInputText
+                      type="text"
+                      placeholder="Contiene"
+                      class="ui-column-filter"
+                      style="width: 100%"
+                      (input)="
+                        dt.filter($event.target.value, col.field, 'contains')
+                      "
+                    />
+
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr [pSelectableRow]="rowData">
+                  <td *ngFor="let col of columns">
+                    <div
+                      style="display: flex; white-space: normal; overflow: hidden"
+                    >
+                      <ng-container *ngIf="col.field == 'Acciones'">
+                        <div class="d-block">
+                          <button
+                            pButton
+                            type="button"
+                            [routerLink]="['/indicador/crear/', rowData.indicadorId]"
+                            icon="pi pi-pencil"
+                            class="btn-mini-siadci"
+                          ></button>
+  
+                          <button
+                            pButton
+                            (click)="borrarIndicador(rowData, i)"
+                            type="button"
+                            icon="pi pi-trash"
+                            class="btn-mini-siadci"
+                          ></button>
+                        </div>
+                      </ng-container>
+                      {{ rowData[col.field] }}
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+        <!-- <div class="card-footer"></div> -->
+      </div>
+    </div>
+  </section>
+  

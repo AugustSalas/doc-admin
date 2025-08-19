@@ -1,0 +1,36 @@
+<li class="nav-item dropdown">
+  <div style="display: flex" class="shakeit">
+    <a class="nav-link" (click)="toggleDropdownMenu()">
+      <div
+        [@openClose]="isOpen ? 'open' : 'closed'"
+        class="open-close-container"
+      >
+        <img
+          class="icon-head bomb"
+          src="../../../../assets/img/head-bomb.png"
+          alt=""
+        />
+        <span class="right badge badge-danger"> </span>
+      </div>
+    </a>
+  </div>
+
+  <div #dropdownMenu class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-siadci">
+    <span class="dropdown-item dropdown-header">Notificaciones</span>
+    <div class="dropdown-divider"></div>
+    <a href="#" class="dropdown-item">
+      <i class="fas fa-file mr-2"></i> <!--3 documentos urgentes -->
+      <span class="float-right text-muted text-sm"></span>
+    </a>
+    <div class="dropdown-divider"></div>
+    <a href="#" class="dropdown-item dropdown-footer">Ver todo</a>
+  </div>
+</li>
+
+<ng-template #notification>
+  <a href="#" class="dropdown-item">
+    <i class="fas fa-envelope mr-2"></i> 4 new messages
+    <span class="float-right text-muted text-sm">3 mins</span>
+  </a>
+  <div class="dropdown-divider"></div>
+</ng-template>

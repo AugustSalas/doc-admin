@@ -1,0 +1,291 @@
+<section class="content-header header-siadci">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>Formulario Usuario - Perfil</h1>
+      </div>
+      <div class="col-sm-6">
+        <h3>Usuario - Perfil</h3>
+      </div>
+      <div class="col-sm-6 text-right">
+        <a
+          class="btn-siadci-without-line"
+          [routerLink]="['/iup/lista']"
+          *ngIf="userLocal"
+        >
+          <i class="pi pi-list"></i>
+          Ir a listado Usuario-Perfil
+        </a>
+        <a
+          class="btn-siadci-without-line"
+          [routerLink]="['/']"
+          *ngIf="!userLocal"
+        >
+          <i class="pi pi-home"></i>
+          Ir al inicio
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<section class="content content-sidci">
+  <div class="container-fluid">
+    <div class="siadci-content-wrapper pt-3">
+
+      <!-- <div class="card-body"> -->
+        <!-- <div class="container-fluid"> -->
+          <form [formGroup]="interGroup" *ngIf="userLocal">
+            <div class="box-body">
+              <!-- <div style="width: 95%; margin-left: auto; margin-right: auto"> -->
+                <!-- <div style="width: 90%; margin-top: 20px"> -->
+                  <div class="row section-siadci mx-4 my-3 py-3 ">
+                    <div class="form-group col-md-12">
+                      <label for="perfilId">Perfil</label>
+                      <ng-multiselect-dropdown
+                        [placeholder]="'Seleccionar uno o varios perfiles'"
+                        [data]="perfils"
+                        formControlName="perfilId"
+                        name="perfilId"
+                        [(ngModel)]="perfilesSeleccionados"
+                        [settings]="dropdownPerfilSettings"
+                        (onSelect)="onPerfilSelect($event)"
+                        (onDeSelect)="onPerfilDeSelect($event)"
+                      >
+                      </ng-multiselect-dropdown>
+                    </div>
+                  </div>
+                <!-- </div> -->
+              <!-- </div> -->
+            </div>
+          </form>
+
+          <form [formGroup]="intermediaGroupForm" *ngIf="userLocal">
+            <div class="box-body">
+              <!-- <div style="width: 95%; margin-left: auto; margin-right: auto"> -->
+                <!-- <div style="width: 90%; margin-top: 20px"> -->
+                  <div class="row section-siadci mx-4 my-3 py-3 ">
+                    <div class="col-sm-4 col-lg-4">
+                      <label>Nombre</label>
+                      <mat-form-field appearance="outline" style="width: 100%">
+                        <input
+                          matInput
+                          type="text"
+                          placeholder="Nombre"
+                          formControlName="nombre"
+                          [(value)]="user.nombre"
+                          (change)="onUserChange($event)"
+                          required
+                        />
+
+                        <mat-error *ngIf="f.nombre.hasError('required')">
+                          <strong>Este valor </strong> es requerido.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-sm-4 col-lg-4">
+                      <label>Apellido Paterno</label>
+                      <mat-form-field appearance="outline" style="width: 100%">
+                        <input
+                          matInput
+                          type="text"
+                          placeholder="Apellido Paterno"
+                          formControlName="apellidoPaterno"
+                          [(value)]="user.apellidoPaterno"
+                          (change)="onUserChange($event)"
+                          required
+                        />
+
+                        <mat-error
+                          *ngIf="f.apellidoPaterno.hasError('required')"
+                        >
+                          <strong>Este valor </strong> es requerido.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-sm-4 col-lg-4">
+                      <label>Apellido Materno</label>
+                      <mat-form-field appearance="outline" style="width: 100%">
+                        <input
+                          matInput
+                          type="text"
+                          placeholder="Apellido Materno"
+                          formControlName="apellidoMaterno"
+                          [(value)]="user.apellidoMaterno"
+                          (change)="onUserChange($event)"
+                          required
+                        />
+
+                        <mat-error
+                          *ngIf="f.apellidoMaterno.hasError('required')"
+                        >
+                          <strong>Este valor </strong> es requerido.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-sm-4 col-lg-4">
+                      <label>Nombre Usuario</label>
+                      <mat-form-field appearance="outline" style="width: 100%">
+                        <input
+                          matInput
+                          type="text"
+                          placeholder="Usuario"
+                          formControlName="usuario"
+                          [(value)]="user.usuario"
+                          [disabled]="usuarioDis"
+                          (change)="onUserEdit($event.target.value)"
+                          required
+                        />
+
+                       
+                      </mat-form-field>
+                    </div>
+
+
+                    <div class="col-sm-4 col-lg-4">
+                      <label>Contraseña</label>
+                      <mat-form-field appearance="outline" style="width: 100%">
+                        <input
+                          matInput
+                          type="password"
+                          placeholder="Contraseña"
+                          formControlName="contrasenha"
+                          [(value)]="user.contrasenha"
+                          required
+                        />
+
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-sm-4 col-lg-4">
+                      <label>Dependencia</label>
+                      <mat-form-field appearance="outline" style="width: 100%">
+                        <mat-select
+                          placeholder="Dependencia"
+                          [(value)]="user.dependenciaId"
+                          formControlName="dependenciaId"
+                          (selectionChange)="onDependenciaSelect($event)"
+                          required
+                        >
+                          <mat-option
+                            *ngFor="let dep of dependencias"
+                            [value]="dep"
+                          >
+                            {{ dep.nombre }}
+                          </mat-option>
+                        </mat-select>
+
+                        <mat-error *ngIf="f.dependenciaId.hasError('required')">
+                          <strong>Este valor </strong> es requerido.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-sm-4 col-lg-4">
+                      <label>Área de Adscripción</label>
+                      <mat-form-field appearance="outline" style="width: 100%">
+                        <mat-select
+                          placeholder="Área de Adscripción"
+                          [(value)]="user.grupoOrganizacionalId"
+                          formControlName="grupoOrganizacionalId"
+                          required
+                        >
+                          <mat-option *ngFor="let area of areas" [value]="area">
+                            {{ area.nombre }}
+                          </mat-option>
+                        </mat-select>
+
+                      </mat-form-field>
+                    </div>
+                  </div>
+                <!-- </div> -->
+              <!-- </div> -->
+            </div>
+
+            <div class="box-footer-siadci">
+              <button
+                *ngIf="isSave"
+                type="submit"
+                class="btn-primary-siadci"
+                (click)="guardarUsuario()"
+              >
+                <i class="fa fa-save"></i> Agregar
+              </button>
+              <button
+                *ngIf="!isSave"
+                type="submit"
+                class="btn-primary-siadci"
+                (click)="guardarUsuario()"
+              >
+                <i class="fa fa-edit"></i> Guardar cambios
+              </button>
+            </div>
+          </form>
+
+          <div *ngIf="!userLocal">
+            <div class="box-body">
+              <div style="width: 95%; margin-left: auto; margin-right: auto">
+                <div style="width: 90%; margin-top: 20px">
+                  <div class="row">
+                    <div class="col-sm-4 col-lg-4">
+                      <label>Contraseña</label>
+                      <mat-form-field appearance="outline" style="width: 100%">
+                        <input
+                          matInput
+                          type="password"
+                          placeholder="Contraseña"
+                          [(ngModel)]="password1"
+                        />
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-sm-4 col-lg-4">
+                      <label>Contraseña</label>
+                      <mat-form-field appearance="outline" style="width: 100%">
+                        <input
+                          matInput
+                          type="password"
+                          placeholder="Contraseña"
+                          [(ngModel)]="password2"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div *ngIf="password1 == password2">
+                    <strong>La contraseña </strong> coincide.
+
+                    <div *ngIf="this.password1.length < 8" style="color: red">
+                      <strong>La contraseña </strong> debe ser de al menos 8
+                      caracteres.
+                    </div>
+                  </div>
+
+                  <div *ngIf="password1 != password2" style="color: red">
+                    <strong>La contraseña </strong> no coincide.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="box-footer-siadci">
+              <button
+                *ngIf="!isSave"
+                class="btn-primary-siadci"
+                (click)="cambiarPassword()"
+              >
+                <i class="fa fa-edit"></i> Guardar cambios
+              </button>
+            </div>
+          </div>
+
+          <!-- <div style="margin-top: auto; margin-bottom: auto"></div> -->
+        <!-- </div> -->
+      <!-- </div> -->
+    </div>
+  </div>
+</section>

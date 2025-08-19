@@ -1,0 +1,168 @@
+<div class="wrapper-modal-siadci">
+  <h1 mat-dialog-title>
+    Funcionarios
+    <div style="color: red">{{ errorMensaje }}</div>
+  </h1>
+  <p>Funcionarios</p>
+  <div mat-dialog-content>
+
+    <div class="row">
+      <div class="col radio-group-siadci">
+        <mat-radio-group aria-label="Select an option" name="opList" [(ngModel)]="tipoRegistro">
+          <mat-radio-button *ngFor="let opt of options" [value]="opt" name="opList" style="margin-left: 15px">
+            {{ opt }}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <app-dropdown rutaClase="#/components/schemas/LeyendaCcp" [nombreCampo]="'leyendaCcpId'" nombre="nombre"
+          nombreClase="Leyenda" placeholder="Seleccionar" style="width: 100%" (editControl)="selectleyenda($event)">
+        </app-dropdown>
+      </div>
+    </div>
+
+    <ng-container [ngSwitch]="tipoRegistro">
+      <div *ngSwitchCase="'Funcionario'">
+        <div class="row">
+          <div class="col">
+            <app-dropdown #selectCategoria rutaClase="#/components/schemas/Dependencia" nombreCampo="dependenciaId"
+              [nombreClase]="'Dependencia'" style="width: 100%" (editControl)="dependenciaSelect($event)">
+            </app-dropdown>
+          </div>
+
+          <div class="col">
+            <app-dropdown #selectGrupo rutaClase="#/components/schemas/GrupoOrganizacional"
+              nombreCampo="grupoOrganizacionalId" [nombreClase]="'Área de adscripción'" style="width: 100%"
+              (editControl)="grupoSelect($event)" [BusquedaCustom]="true">
+            </app-dropdown>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="this.data.remitenteDestinatario == 'E'">
+          <div class="col">
+            <div class="row">
+              <div class="col-10">
+                <app-dropdown #selectActor rutaClase="#/components/schemas/Actor" nombreCampo="puesto_destinatario"
+                  camposFiltrados="value.puesto_destinatario,value.nombre_destinatario" nombre="nombre_destinatario"
+                  nombreClase="Funcionario" style="width: 100%" (editControl)="AgregarRegistro($event)"
+                  [BusquedaCustom]="true">
+                </app-dropdown>
+              </div>
+              <div class="col-1" style=" display: flex; align-items: center;">
+                <!--     <button pButton type="button" class="outline-color" tittle="Acuse" icon="pi pi-plus"
+                  (click)="openDialogContacto()"></button> -->
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row" *ngIf="this.data.remitenteDestinatario == 'S'">
+          <div class="col">
+
+            <div class="row">
+              <div class="col-11">
+                <app-dropdown #selectActor rutaClase="#/components/schemas/Actor" nombreCampo="puesto_remitente"
+                  camposFiltrados="value.puesto_destinatario,value.nombre_remitente" nombre="nombre_remitente"
+                  nombreClase="Funcionario" style="width: 100%" (editControl)="AgregarRegistro($event)"
+                  [BusquedaCustom]="true">
+                </app-dropdown>
+              </div>
+              <div class="col-1" style=" display: flex; align-items: center;">
+                <!-- <button pButton type="button" class="outline-color" tittle="Acuse" icon="pi pi-plus"
+                  (click)="openDialogContacto()"></button> -->
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+
+        <p></p>
+      </div>
+
+      <div class="row" *ngSwitchCase="'Contacto'">
+        <div class="col">
+          <div class="row" *ngIf="!loading">
+            <div class="col-11">
+              <app-dropdown #selectGrupo rutaClase="#/components/schemas/Contacto" nombreCampo="puesto_destinatario"
+                camposFiltrados="value.puesto_destinatario,value.nombre_destinatario" nombre="nombre_destinatario"
+                [nombreClase]="'Contacto'" style="width: 100%" (editControl)="AgregarRegistro($event)"
+                [BusquedaCustom]="true" [postCustom]="optionsPostContacto">
+              </app-dropdown>
+            </div>
+
+            <div class="col-1" style=" display: flex; align-items: center;">
+              <button pButton type="button" class="outline-color" tittle="Acuse" icon="pi pi-plus"
+                (click)="openDialogContacto()"></button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row" *ngSwitchCase="'Grupo'">
+        <div class="col">
+          <div class="row">
+            <div class="col-11">
+              <app-dropdown #selectGrupo rutaClase="#/components/schemas/GrupoEnvio" nombreCampo="nombre"
+                camposFiltrados="value.nombre,value.descripcion" nombre="descripcion" [nombreClase]="'GrupoEnvio'"
+                style="width: 100%" (editControl)="AgregarRegistro($event)" [BusquedaCustom]="true"
+                [postCustom]="optionsPostGrupo">
+              </app-dropdown>
+            </div>
+
+            <div class="col-1" style=" display: flex; align-items: center;">
+              <button pButton type="button" class="outline-color" tittle="Acuse" icon="pi pi-plus"
+                (click)="openDialogContacto()"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="row">
+      <div class="col">
+        <h4><span class="rounded-pill ">Funcionario</span></h4>
+      </div>
+
+      <div class="col">
+        <h4><span class="rounded-pill ">Contacto</span></h4>
+      </div>
+
+      <div class="col">
+        <h4><span class="rounded-pill ">Grupo</span></h4>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="mod-chip-list" appearance="outline" style="width: 100%">
+          <label> Funcionarios</label>
+
+          <div style="display: flex">
+            <mat-chip-list #chipListDest>
+              <mat-chip *ngFor="let destinatario of destinatarios" [removable]="removable"
+                (removed)="removeDestinatario(destinatario)" selected [ngClass]="destinatario.color">
+                {{ destinatario.nombre }}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input [matChipInputFor]="chipListDest" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addDetinatario($event)" disabled />
+            </mat-chip-list>
+          </div>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <div mat-dialog-actions>
+    <!-- <button mat-button (click)="onNoClick()">No Thanks</button> -->
+    <button class="btn-primary-siadci" [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+  </div>
+</div>

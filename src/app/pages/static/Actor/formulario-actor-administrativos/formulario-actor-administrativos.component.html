@@ -1,0 +1,205 @@
+<section class="content-header header-siadci">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>Formulario Funcionario</h1>
+      </div>
+      <div class="col-sm-6">
+        <h3>Funcionario</h3>
+      </div>
+      <div class="col-sm-6 text-right">
+        <a class="btn-siadci-without-line" [routerLink]="['/actor/listaadmin']">
+          <i class="fas fa-th-large"></i>
+          Ir a listado Funcionario
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<section class="content content-sidci">
+  <div class="container-fluid">
+    <div class="siadci-content-wrapper pt-3">
+      <!-- <div class="card-body"> -->
+      <!-- <div class="container-fluid"> -->
+
+      <form [formGroup]="formGroup">
+        <div class="box-body">
+          <!-- <div style="width: 95%  ; margin-left: auto;   margin-right: auto;"> -->
+
+          <!-- <div style="width: 90% ; margin-top: 20px"> -->
+          <div class="row section-siadci mx-4 my-3 py-3">
+            <div class="col-sm-4 col-lg-4">
+              <label>Nombre Funcionario</label>
+              <mat-form-field appearance="outline" style="width: 100%">
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Nombre Funcionario"
+                  formControlName="nombre"
+                  [(value)]="actor.nombre"
+                  required
+                  [disabled]="true"
+                  [readonly]="true"
+                />
+
+                <mat-error *ngIf="f.nombre.hasError('required')">
+                  <strong>Este valor </strong> es requerido.
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-sm-4 col-lg-4">
+              <label>Apellido Paterno</label>
+              <mat-form-field appearance="outline" style="width: 100%">
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Apellido Paterno"
+                  formControlName="apellidoPaterno"
+                  [(value)]="actor.apellidoPaterno"
+                  required
+                />
+
+                <mat-error *ngIf="f.apellidoPaterno.hasError('required')">
+                  <strong>Este valor </strong> es requerido.
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-sm-4 col-lg-4">
+              <label>Apellido Materno</label>
+              <mat-form-field appearance="outline" style="width: 100%">
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Apellido Materno"
+                  formControlName="apellidoMaterno"
+                  [(value)]="actor.apellidoMaterno"
+                  required
+                />
+
+                <mat-error *ngIf="f.apellidoMaterno.hasError('required')">
+                  <strong>Este valor </strong> es requerido.
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-sm-4 col-lg-4">
+              <label>Teléfono</label>
+              <mat-form-field appearance="outline" style="width: 100%">
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Teléfono"
+                  formControlName="telefono"
+                  [(value)]="actor.telefono"
+                  required
+                />
+
+                <mat-error *ngIf="f.telefono.hasError('required')">
+                  <strong>Este valor </strong> es requerido.
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-sm-4 col-lg-4">
+              <label>Correo electrónico</label>
+              <mat-form-field appearance="outline" style="width: 100%">
+                <input
+                  matInput
+                  type="email"
+                  placeholder="Correo electrónico"
+                  formControlName="correoElectronico"
+                  [(value)]="actor.correoElectronico"
+                  required
+                />
+
+                <mat-error *ngIf="f.correoElectronico.hasError('required')">
+                  <strong>Este valor </strong> es requerido.
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <!-- </div> -->
+          <!-- </div> -->
+        </div>
+      </form>
+
+      <div style="width: 95%; margin-left: auto; margin-right: auto">
+        <form [formGroup]="formGroupUsuarios">
+          <div class="col-sm-8 col-lg-8">
+            <label>Titular</label>
+            <mat-form-field appearance="outline" style="width: 100%">
+              <mat-select
+                placeholder="Usuario base"
+                [(value)]="UsuarioBase"
+                formControlName="usuarioBase"
+                (selectionChange)="onUsuarioBaseSelect($event.value)"
+                required
+              >
+                <mat-option *ngFor="let tr of ListadoOrganizacion" [value]="tr">
+                  {{ tr.puesto_actor + " - " + tr.nombre_actor }}
+                </mat-option>
+              </mat-select>
+
+              <mat-error *ngIf="u.usuarioBase.hasError('required')">
+                <strong>Este valor </strong> es requerido.
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-sm-8 col-lg-8">
+            <label>Adicionales</label>
+            <mat-form-field appearance="outline" style="width: 100%">
+              <mat-select
+                placeholder="Usuarios adicionales"
+                [(value)]="UsuarioAdicionales"
+                formControlName="usuarioAdicional"
+                multiple
+              >
+                <mat-option
+                  *ngFor="let tr of ListadoOrganizacionFiltrada"
+                  [value]="tr"
+                >
+                  {{ tr.puesto_actor + " - " + tr.nombre_actor }}
+                </mat-option>
+              </mat-select>
+
+              <mat-error *ngIf="u.usuarioAdicional.hasError('required')">
+                <strong>Este valor </strong> es requerido.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
+
+      <!-- </div> -->
+      <!-- </div> -->
+
+      <div class="box-footer-siadci">
+        <!-- <div style="margin-left: 3%;"> -->
+        <button
+          *ngIf="isSave"
+          type="submit"
+          class="btn btn-primary-siadci"
+          (click)="guardarActor()"
+        >
+          <i class="fa fa-save"></i> Agregar
+        </button>
+
+        <button
+          *ngIf="!isSave"
+          type="submit"
+          class="btn btn-primary-siadci"
+          (click)="guardarActor()"
+        >
+          <i class="fa fa-edit"></i> Guardar cambios
+        </button>
+
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,47 @@
+.bg-sidci-info{
+  border-radius: 0px;
+  background-color: #ced8dc;
+}
+.bg-sidci-success{
+  border-radius: 0px;
+  background-color: #e2edcd;
+}
+.bg-sidci-warning{
+  border-radius: 0px;
+  background-color: #ffffd3;
+}
+.bg-sidci-danger{
+  border-radius: 0px;
+  background-color: #ffebba;
+}
+
+.siadci-card{
+  display: flex;
+  flex-direction: column;
+  box-shadow: none !important;
+
+}
+.sidci-card-body{
+  display: flex;
+  justify-content: space-around;
+  padding: 30px;
+}
+.sidci-card-footer{
+  text-align: end;
+  padding: 15px;
+}
+.lnk-more{
+  font-size: 2rem;
+}
+.bg-footer-info{
+  background-color: #50656d;
+}
+.bg-footer-success{
+  background-color: #499348;
+}
+.bg-footer-warning{
+  background-color: #deaf3d;
+}
+.bg-footer-danger{
+  background-color: #bd6027;
+}

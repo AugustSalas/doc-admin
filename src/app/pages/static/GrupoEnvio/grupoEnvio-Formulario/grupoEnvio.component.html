@@ -1,0 +1,99 @@
+<section class="content-header header-siadci">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>Formulario Grupo Envío</h1>
+      </div>
+      <div class="col-sm-6">
+        <h3>Grupo Envío</h3>
+      </div>
+      <div class="col-sm-6 text-right">
+        <a class="btn-siadci-without-line" [routerLink]="['/grupoEnvio/lista']">
+          <i class="fas fa-th-large"></i>
+          Ir a listado Grupo Envío
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<section class="content content-sidci">
+  <div class="container-fluid">
+    <div class="siadci-content-wrapper pt-3">
+      <!-- <div class="card-body"> -->
+      <!-- <div class="container-fluid"> -->
+      <form [formGroup]="formGroup">
+        <div class="box-body">
+          <!-- <div style="width: 95%; margin-left: auto; margin-right: auto"> -->
+          <!-- <div style="width: 90%; margin-top: 20px"> -->
+          <div class="row section-siadci mx-4 my-3 py-3">
+            <div class="col-sm-6 col-lg-6">
+              <!-- <label>Nombre </label> -->
+              <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Nombre</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Nombre"
+                  formControlName="nombre"
+                  [(value)]="GE.nombre"
+                  required
+                />
+
+                <mat-error *ngIf="f.nombre.hasError('required')">
+                  <strong>Este valor </strong> es requerido.
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-sm-6 col-lg-6">
+              <!-- <label>Descripción </label> -->
+              <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Descripción</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Descripcion"
+                  formControlName="descripcion"
+                  [(value)]="GE.descripcion"
+                  required
+                />
+
+                <mat-error *ngIf="f.descripcion.hasError('required')">
+                  <strong>Este valor </strong> es requerido.
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+        </div>
+        <div class="box-footer-siadci">
+          <button
+            *ngIf="isSave"
+            type="submit"
+            class="btn-primary-siadci"
+            (click)="guardarGE()"
+          >
+            <i class="fa fa-save"></i> Agregar
+          </button>
+
+          <button
+            *ngIf="!isSave"
+            type="submit"
+            class="btn-primary-siadci"
+            (click)="guardarGE()"
+          >
+            <i class="fa fa-edit"></i> Guardar cambios
+          </button>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+      <!-- </div> -->
+      <!-- </div> -->
+
+      <!-- <div class="card-footer">
+        <div style="margin-left: 3%"></div>
+      </div> -->
+</section>

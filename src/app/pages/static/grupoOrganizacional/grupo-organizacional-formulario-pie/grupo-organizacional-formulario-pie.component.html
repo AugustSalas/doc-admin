@@ -1,0 +1,262 @@
+<section class="content-header header-siadci">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>Formulario Área de Adscripción</h1>
+        </div>
+        <div class="col-sm-6">
+          <h3>Área de Adscripción</h3>
+        </div>
+        <div class="col-sm-6 text-right">
+          <a
+            class="btn-siadci-without-line"
+            [routerLink]="['/grupoorganizacional/listapie']"
+          >
+            <i class="fas fa-th-large"></i>
+            Ir a listado Área de Adscripción
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  
+  <section class="content content-sidci">
+    <div class="container-fluid">
+      <div class="siadci-content-wrapper">
+        <form [formGroup]="formGroup" *ngIf="this.gpOrg != null">
+          <div class="box-body">
+            <!-- <div style="width: 95%; margin-left: auto; margin-right: auto"> -->
+              <!-- <div style="width: 90%; margin-top: 20px"> -->
+              <div class="row mx-4 py-3">
+                <div class="section-siadci py-3 col-12">
+                  <div class="col-sm-12 col-lg-12">
+                    <!-- <label>Nombre Área de adscripción</label> -->
+                    <mat-form-field appearance="outline" style="width: 100%">
+                      <mat-label>Nombre Área de Adscripción</mat-label>
+                      <input
+                        matInput
+                        type="text"
+                        placeholder="Nombre Área de Adscripción"
+                        formControlName="nombre"
+                        [(value)]="gpOrg.nombre"
+                        required
+                      />
+                      <mat-error *ngIf="f.nombre.hasError('required')">
+                        <strong>Este valor </strong> es requerido.
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="col-sm-12 col-lg-12">
+                    <!-- <label>Descripcion</label> -->
+                    <mat-form-field appearance="outline" style="width: 100%">
+                      <mat-label>Descripción</mat-label>
+                      <input
+                        matInput
+                        type="text"
+                        placeholder="Descripción"
+                        formControlName="descripcion"
+                        [(value)]="gpOrg.descripcion"
+                        required
+                      />
+                      <mat-error *ngIf="f.descripcion.hasError('required')">
+                        <strong>Este valor </strong> es requerido.
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="col-sm-12 col-lg-12">
+                    <!-- <label>Prefijo</label> -->
+                    <mat-form-field appearance="outline" style="width: 100%">
+                      <mat-label>Prefijo</mat-label>
+                      <input
+                        matInput
+                        type="text"
+                        placeholder="Prefijo"
+                        formControlName="prefijo"
+                        [(value)]="gpOrg.prefijo"
+                        required
+                      />
+  
+                      <mat-error *ngIf="f.prefijo.hasError('required')">
+                        <strong>Este valor </strong> es requerido.
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="col-sm-12 col-lg-12">
+                    <!-- <label>Puesto</label> -->
+                    <mat-form-field appearance="outline" style="width: 100%">
+                      <mat-label>Puesto</mat-label>
+                      <input
+                        matInput
+                        type="text"
+                        placeholder="Puesto"
+                        formControlName="puesto"
+                        [(value)]="gpOrg.puesto"
+                        required
+                      />
+                      <mat-error *ngIf="f.puesto.hasError('required')">
+                        <strong>Este valor </strong> es requerido.
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="section-siadci py-3 my-4 col-12">
+                  
+                  <!--<app-dropdown
+                    rutaClase="#/components/schemas/Actor"
+                    nombreCampo="actorId"
+                    nombreClase="Titular Área de adscripción"
+                    [valor]="this.gpOrg['titularGrupoOrganizacional']"
+                    (editControl)="
+                      f['titularGrupoOrganizacional'].setValue($event)
+                    "
+                    style="width: 100%"
+                  >
+                  </app-dropdown>-->
+  
+                  <div class="col-10">
+  
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label>Titular Área</mat-label>
+  
+                        <input matInput style="display: none;"
+                            formControlName="titularGrupoOrganizacional" required>
+  
+                        <p style="height: 14px;"></p>
+  
+                        <p-dropdown [options]="actors" filter="true"
+                            placeholder = " Seleccionar titular"
+                            optionLabel="NombreCompleto"
+                            formControlName="titularGrupoOrganizacional">
+                        </p-dropdown>
+  
+                        <mat-error *ngIf=" f.titularGrupoOrganizacional.hasError('required')">
+                            <strong>Este valor </strong> es requerido.
+                        </mat-error>
+                    </mat-form-field>
+  
+  
+                </div>
+  
+  
+                  <app-dropdown
+                    rutaClase="#/components/schemas/Dependencia"
+                    nombreCampo="dependenciaId"
+                    [nombreClase]="'Dependencia'"
+                    [valor]="this.gpOrg['dependenciaId']"
+                    style="width: 100%"
+                    (editControl)="f['dependenciaId'].setValue($event)"
+                  >
+                  </app-dropdown>
+  
+                  <app-dropdown
+                    rutaClase="#/components/schemas/GrupoOrganizacional"
+                    nombreCampo="grupoOrganizacionalId"
+                    [nombreClase]="'Área de Adscripción Padre'"
+                    [valor]="this.gpOrg['grupoOrganizacionalPadre']"
+                    style="width: 100%"
+                    (editControl)="f['grupoOrganizacionalPadre'].setValue($event)">
+                  </app-dropdown>
+  
+                  <div class="col">
+                    <div class="row" *ngIf="imagenLoading">
+                      <div
+                        class="col-12"
+                        style="margin-left: 40%; margin-right: 50%"
+                      >
+                        <p-progressSpinner></p-progressSpinner>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-6">
+                        <input
+                          type="file"
+                          (change)="onSelectFile($event)"
+                          name="file-3[]"
+                          id="file-3"
+                          class="inputfile inputfile-3"
+                          [(value)]="inputImage"
+                        />
+  
+                        <label for="file-3">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="17"
+                            viewBox="0 0 20 17"
+                          >
+                            <path
+                              d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"
+                            />
+                          </svg>
+                          <span>{{ labelImage }} </span>
+                        </label>
+                      </div>
+  
+                      <div class="col"  *ngIf="membrete64.membrete">
+                        <ng-container
+                          *ngIf="membrete64.membrete.ctrlActivo == true"
+                        >
+                          <div>
+                            <img [src]="membrete64.base64" height="100" />
+                            <br />
+                            <div class="row">
+                              <div class="col">
+                                {{
+                                  membrete64.membrete.nombreArchivoOriginal
+                                }}
+                              </div>
+                            </div>
+                          </div>
+  
+                          <div class="row" *ngIf="membrete64.base64 != ''">
+                            <button
+                              (click)="
+                                downloadFile(
+                                  membrete64.base64,
+                                  membrete64.membrete.nombreArchivoOriginal
+                                )
+                              "
+                              class="btn btn-primary"
+                              style="margin-left: 10px"
+                            >
+                              <i class="fa fa-download icon-blue"></i>
+                            </button>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+                    <p></p>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- </div> -->
+            <!-- </div> -->
+          </div>
+          <div class="box-footer-siadci">
+            <button
+              *ngIf="isSave"
+              type="submit"
+              class="btn-primary-siadci"
+              (click)="guardarGrupOrganizacional()"
+            >
+              <i class="fa fa-save"></i> Agregar
+            </button>
+  
+            <button
+              *ngIf="!isSave"
+              type="submit"
+              class="btn-primary-siadci"
+              (click)="guardarGrupOrganizacional()"
+            >
+              <i class="fa fa-edit"></i> Guardar cambios
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>

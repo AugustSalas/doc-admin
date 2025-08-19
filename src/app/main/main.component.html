@@ -1,0 +1,28 @@
+<app-header (toggleMenuSidebar)="toggleMenuSidebar()"></app-header>
+
+<div class="wrapper">
+
+  <app-menu-sidebar
+    #sideBar
+    (click)="AlturaMenu()"
+    (mainSidebarHeight)="mainSidebarHeight($event)"></app-menu-sidebar>
+
+  <div
+    class="content-wrapper"
+    #contentWrapper style="height: fit-content;"
+    [style.minHeight]="alturaMenu">
+
+    <!-- <p-toast [style]="{marginTop: '80px'}" position="bottom-right"></p-toast>
+
+    <p-toast [style]="{marginTop: '80px'}" position="top-left" key="tl"></p-toast>
+
+    <p-toast [style]="{marginTop: '80px'}" position="top-center" key="tc"></p-toast>
+
+    <p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast" key="custom" position="bottom-center"></p-toast> -->
+    <router-outlet></router-outlet>
+  </div>
+
+  <!-- <app-footer></app-footer> -->
+  <aside class="control-sidebar control-sidebar-dark"></aside>
+  <div id="sidebar-overlay" (click)="toggleMenuSidebar()"></div>
+</div>

@@ -1,0 +1,40 @@
+<div class="login-box">
+  <div class="logo-siadci">
+    <img class="img-responsive" src="../../assets/img/logo-main.jpg" alt="">
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <p class="login-box-msg">Inicio de sesión</p>
+
+      <form [formGroup]="loginForm">
+        <div class="input-group mb-3">
+          <input formControlName="username" type="text" class="form-control" placeholder="Usuario" />
+        </div>
+        <div class="input-group mb-3">
+          <input formControlName="password" type="password" class="form-control" placeholder="Contraseña" />
+        </div>
+        <div class="row">
+          <!-- /.col -->
+          <div class="col-12">
+            <button (click)="onSubmit()" type="submit" class="btn btn-block">
+              Acceder
+            </button>
+          </div>
+          <!-- /.col -->
+      
+        </div>
+      </form>
+
+      <div class="social-auth-links text-center mb-3">
+
+      </div>
+
+      <div *ngIf="error" class="alert alert-danger">{{error.message}}</div>
+
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+<div class="login-box-msg">
+  <a href="http://siadci.veracruz.gob.mx/recursos/ManualSiadci.pdf" target="_blank">Manual de usuario</a><br>
+</div>

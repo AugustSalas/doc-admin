@@ -1,0 +1,36 @@
+<form [formGroup]="form" style="width: 100%;">
+
+    <mat-form-field appearance="outline" class="w100-container" style="width: 100%;">
+        <input matInput type="number" (onChange)="CambiarValor($event)" style="display: none;" formControlName="kit"
+            required>
+
+        <label style="display: flex;  position: absolute;  font-size: 76%; top: -12px;  background: white;"
+            [ngStyle]="{'color': f.kit.hasError('required') ? 'red' : 'dimgrey' }">
+            {{this.etiquetaClase + " *"}} </label>
+
+        <p-dropdown  [options]="listaSelect" filter="true"  [filterBy]="camposFiltrados" [optionLabel]="nombre"
+        (onChange)="CambiarValor($event)" placeholder="{{placeholder +' '+ etiquetaClase.toLowerCase() }} "
+        formControlName="kit" required>
+
+        <ng-template let-item pTemplate="selectedItem" style="display: grid !important;">
+            <div style="display: grid !important;">
+                <span
+                    style="vertical-align:middle; margin-left: .5em; width: 100% ; display: grid !important; ">{{''+item.value[nombreCampo] + ':' + item.label}}</span>
+            </div>
+
+        </ng-template>
+        <ng-template let-item pTemplate="item">
+            <div class="ui-helper-clearfix" style="position: relative;height: auto;">
+                <div style="font-size:14px;float:left;margin-top:8px">
+                    {{''+item.value[nombreCampo] + ':' + item.label}}</div>
+            </div>
+        </ng-template>
+    </p-dropdown>
+
+
+        <mat-error *ngIf=" f.kit.hasError('required')">
+            <strong>Este valor </strong> es requerido.
+        </mat-error>
+
+    </mat-form-field>
+</form>

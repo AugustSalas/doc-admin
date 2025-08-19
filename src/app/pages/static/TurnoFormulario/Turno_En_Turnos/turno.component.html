@@ -1,0 +1,120 @@
+<section class="content-header header-siadci">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>Formulario Turno</h1>
+      </div>
+      <div class="col-sm-6">
+        <h3>Turno</h3>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<section class="content content-sidci">
+  <div class="container-fluid">
+    <div class="siadci-content-wrapper">
+
+      <form [formGroup]="formGroup">
+        <div class="box-body">
+          <div class="row mx-4 py-3">
+            <div class="section-siadci py-3 col-12">
+              <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Destinatario</mat-label>
+
+                <input matInput style="display: none;"
+                formControlName="organizacionIdDestino" required>
+                <p style="height: 14px;"></p>
+
+                <p-dropdown [options]="ListadoContacto" filter="true"
+                            required="true" 
+                            placeholder="Seleccionar funcionario"
+                            optionLabel="NombreCompleto"
+                            formControlName="organizacionIdDestino"  (onChange)="consultaTurnos($event)" >
+                </p-dropdown>
+                <mat-error *ngIf=" f.organizacionIdDestino.hasError('required')">
+                    <strong>Este valor </strong> es requerido.
+                </mat-error>
+
+              </mat-form-field>
+
+
+
+              <div class="section-siadci py-3 col-12">
+                  <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Instrucciones</mat-label>
+                    <textarea matInput 
+                              type="text"
+                              placeholder="Instrucciones"
+                              formControlName="instrucciones"
+                              [(value)]="TI.instrucciones" 
+                              >
+                    </textarea>
+
+                    <!--<mat-error *ngIf="f.instrucciones.hasError('required')">
+                      <strong>Este valor </strong> es requerido.
+                    </mat-error>-->
+                  </mat-form-field>
+                </div>
+
+
+
+            </div>
+          </div>
+          <div class="box-footer-siadci">
+            <button *ngIf="isSave"
+                    type="submit"
+                    class="btn-primary-siadci"
+                    (click)='guardarTurno();'>
+                     <i class="fa fa-save"> </i> Agregar
+            </button>
+
+            <button *ngIf="!isSave"
+                    type="submit"
+                    class="btn-primary-siadci"
+                    (click)='guardarTurno();'>
+                    <i class="fa fa-edit"></i> Guardar cambios
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div *ngIf="data!=null">
+        <p-table #dt class="ng2-smart-table" [columns]="cols" [value]="data" paginator="true" [rows]="5">
+          <ng-template pTemplate="caption">  
+            <div class="search-wrapper-siadci d-flex">
+              <input type="text" pInputText placeholder="Filtro global" class="search-input"
+                (input)="dt.filterGlobal($event.target.value, 'contains')" />
+              <i class="fa fa-search"></i>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                {{ col.header }}
+                <p-sortIcon [field]="col.field" [pSortableColumn]="col.field"></p-sortIcon>
+  
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+              <td *ngFor="let col of columns">
+                <div style="display: flex; white-space: normal; overflow: hidden">
+                  <ng-container *ngIf="col.field == 'Acciones'">
+                    <div class="d-block">
+                               
+                    </div>
+                  </ng-container>
+                  {{ rowData[col.field] }}
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+     
+    </div>
+  </div>
+</section>

@@ -1,0 +1,207 @@
+<section class="content-header header-siadci">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>Formulario Área</h1>
+      </div>
+      <div class="col-sm-6">
+        <h3>Área</h3>
+      </div>
+      <div class="col-sm-6 text-right">
+        <a
+          class="btn-siadci-without-line"
+          [routerLink]="['/Organizacion/lista']"
+        >
+          <i class="fas fa-th-large"></i>
+          Ir a listado Áreas
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<section class="content content-sidci">
+  <div class="container-fluid">
+    <div class="siadci-content-wrapper pt-3">
+      <form [formGroup]="formGroup">
+        <div class="box-body">
+          <div class="row section-siadci mx-4 py-3">
+            <div class="col-sm-4 col-lg-4">
+              <!-- <label>Nombre Área </label> -->
+              <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Nombre Área</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Nombre Área "
+                  formControlName="nombre"
+                  [(value)]="organizacion.nombre"
+                  required
+                />
+
+                <mat-error *ngIf="f.nombre.hasError('required')">
+                  <strong>Este valor </strong> es requerido.
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-4 col-lg-4">
+              <!-- <label>Descripcion</label> -->
+              <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Descripción</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Descripcion"
+                  formControlName="descripcion"
+                  [(value)]="organizacion.descripcion"
+                  required
+                />
+
+                <mat-error *ngIf="f.descripcion.hasError('required')">
+                  <strong>Este valor </strong> es requerido.
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-4 col-lg-4">
+              <!-- <label>Prefijo</label> -->
+              <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Prefijo</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Prefijo"
+                  formControlName="prefijo"
+                  [(value)]="organizacion.prefijo"
+                  required
+                />
+
+                <mat-error *ngIf="f.prefijo.hasError('required')">
+                  <strong>Este valor </strong> es requerido.
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+
+            <div class="col-sm-4 col-lg-4">
+              <!-- <label>Puesto</label> -->
+              <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Puesto</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Puesto"
+                  formControlName="puesto"
+                  [(value)]="organizacion.puesto"
+                  required
+                />
+
+                <mat-error *ngIf="f.puesto.hasError('required')">
+                  <strong>Este valor </strong> es requerido.
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+
+            <div class="col-sm-4 col-lg-4">
+              <!-- <label>Área de adscripción</label> -->
+              <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Área de Adscripción</mat-label>
+                <mat-select
+                  placeholder="Área de Adscripción"
+                  (selectionChange)="onSelectOrg($event.value)"
+                  [(value)]="goss"
+                  formControlName="grupoOrganizacionalId"
+                  required
+                  
+                >
+                  <mat-option
+                    *ngFor="let go of gos"
+                    [value]="go.grupoOrganizacionalId"
+                  >
+                    {{ go.nombre }}
+                  </mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="f.grupoOrganizacionalId.hasError('required')">
+                  <strong>Este valor </strong> es requerido.
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+
+            <div class="col-sm-4 col-lg-4">
+              <!-- <label>Área de adscripción</label> -->
+              <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Área Padre</mat-label>
+                <mat-select
+                  placeholder="Área"
+                  [(value)]="organizacion.organizacionId"
+                  formControlName="organizacionIdPadre"
+                  
+                >
+                  <mat-option
+                    *ngFor="let or of org"
+                    [value]="or.organizacionId"
+                  >
+                    {{ or.nombre }}
+                  </mat-option>
+                </mat-select>
+
+                <!--<mat-error *ngIf="f.organizacionId.hasError('required')">
+                  <strong>Este valor </strong> es requerido.
+                </mat-error>-->
+              </mat-form-field>
+            </div>
+
+
+          
+            <div class="col-10">
+
+              <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label>Titular Área</mat-label>
+
+                  <input matInput style="display: none;"
+                      formControlName="titularOrganizacion" required>
+
+                  <p style="height: 14px;"></p>
+
+                  <p-dropdown [options]="actors" filter="true"
+                      placeholder = " Seleccionar titular"
+                      optionLabel="NombreCompleto"
+                      formControlName="titularOrganizacion">
+                  </p-dropdown>
+
+                  <mat-error *ngIf=" f.titularOrganizacion.hasError('required')">
+                      <strong>Este valor </strong> es requerido.
+                  </mat-error>
+              </mat-form-field>
+
+
+          </div>
+
+          </div>
+        </div>
+        <div class="box-footer-siadci mt-3">
+          <button
+            *ngIf="isSave"
+            type="submit"
+            class="btn-primary-siadci"
+            (click)="guardarOrganizacion()"
+          >
+            <i class="fa fa-save"></i> Agregar
+          </button>
+
+          <button
+            *ngIf="!isSave"
+            type="submit"
+            class="btn-primary-siadci"
+            (click)="guardarOrganizacion()"
+          >
+            <i class="fa fa-edit"></i> Guardar cambios
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

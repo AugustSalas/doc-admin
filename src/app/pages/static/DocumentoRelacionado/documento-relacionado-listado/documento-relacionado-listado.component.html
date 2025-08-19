@@ -1,0 +1,159 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Listado de documentos</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">documentos</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+  <!-- Default box -->
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Muestra los registros de documentos</h3>
+
+        <div class="card-tools">
+          <button
+            routerLink="/documento/formulario/new"
+            class="btn btn-primary"
+          >
+            <i class="fa fa-plus"></i> Agregar
+          </button>
+        </div>
+      </div>
+
+      <div class="card-siadci py-4">
+        <div
+          style="
+            width: 95%;
+            overflow: auto;
+            margin-left: auto;
+            margin-right: auto;
+          "
+        >
+          <div
+            [style.width]="Ancho"
+            class="table-siadci"
+          >
+            <p-table
+              #dt
+              class="ng2-smart-table"
+              [columns]="cols"
+              [value]="data"
+              [paginator]="true"
+              [rows]="10"
+            >
+              <ng-template pTemplate="caption">
+                <div class="search-wrapper-siadci d-flex">
+                  <input
+                    type="text"
+                    pInputText
+                    placeholder="Filtro global"
+                    class="search-input"
+                    (input)="dt.filterGlobal($event.target.value, 'contains')"
+                  />
+                  <i class="fa fa-search"></i>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th *ngFor="let col of columns">
+                    <div
+                      style="
+                        display: flex;
+                        white-space: normal;
+                        overflow: hidden;
+                      "
+                    >
+                      {{ col.header | titlecase }}
+                    </div>
+                  </th>
+                </tr>
+                <tr>
+                  <th
+                    *ngFor="let col of columns"
+                    [ngSwitch]="TipoDatoClase(col.field)"
+                  >
+                    <input
+                      *ngSwitchCase="'string'"
+                      pInputText
+                      type="text"
+                      (input)="
+                        dt.filter($event.target.value, col.field, 'contains')
+                      "
+                      style="width: 100%"
+                    />
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr [pSelectableRow]="rowData">
+                  <td *ngFor="let col of columns">
+                    <div
+                      style="
+                        display: flex;
+                        white-space: normal;
+                        overflow: hidden;
+                      "
+                    >
+                      <ng-container *ngIf="col.field == 'Acciones'">
+                        <div style="display: block">
+                          <button
+                            pButton
+                            (click)="EditarClase(rowData)"
+                            type="button"
+                            icon="pi pi-pencil"
+                            class="btn-mini-siadci"
+                          ></button>
+
+                          <button
+                            pButton
+                            (click)="EditarClase(rowData)"
+                            type="button"
+                            icon="pi pi-trash"
+                            class="btn-mini-siadci"
+                          ></button>
+
+                          <button
+                            pButton
+                            type="button"
+                            [routerLink]="[
+                              '/documentorelacionado/formulario/' +
+                                rowData.documentoId +
+                                '/new'
+                            ]"
+                            class="btn-mini-siadci"
+                            icon="fas fa-envelope-square"
+                          ></button>
+                        </div>
+                      </ng-container>
+
+                      {{ TipoDatoValor(rowData[col.field], col.field) }}
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+      <!-- /.card-body -->
+      <!-- <div class="card-footer"></div> -->
+      <!-- /.card-footer-->
+    </div>
+  </div>
+  <!-- /.card -->
+</section>
+<!-- /.content -->

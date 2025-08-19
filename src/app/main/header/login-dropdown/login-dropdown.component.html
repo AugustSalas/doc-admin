@@ -1,0 +1,52 @@
+<li class="nav-item dropdown">
+  <a class="nav-link" (click)="toggleDropdownMenu()">
+    <img class="icon-head gear" src="../../../../assets/img/head-engrane.png" alt="" />
+  </a>
+
+  <div #dropdownMenu class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-siadci">
+    <span class="dropdown-item dropdown-header">Login</span>
+    <div class="dropdown-divider"></div>
+
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+      </div>
+      <div class="info">
+        <a [routerLink]="['/profile']" class="d-block">{{
+          this.apiService.getCurrentUser().nombre
+        }}</a>
+      </div>
+    </div>
+
+    <div style="margin-left: auto; margin-right: auto; display: table">
+      <label>Perfiles</label>
+      <select (change)="ChangePerfil($event.target.value)" [value]="apiService.getPerfil()"
+        (click)="$event.stopPropagation()">
+        <option *ngFor="let perfilM of apiService.menuPerfiles; let i = index" [value]="i">
+          {{ perfilM }}
+        </option>
+      </select>
+    </div>
+
+    <a href="#" class="dropdown-item dropdown-footer">Ver notificaciones</a>
+
+    <a class="nav-link" (click)="password()">
+      <i class="fas fa-cogs"></i> Cambio de contraseña
+    </a>
+
+    <div class="dropdown-divider"></div>
+
+
+    <a class="nav-link" (click)="logout()">
+      <i class="fas fa-power-off"></i> Salir
+    </a>
+
+  </div>
+</li>
+
+<ng-template #notification>
+  <a href="#" class="dropdown-item">
+    <i class="fas fa-envelope mr-2"></i> 4 new messages
+    <span class="float-right text-muted text-sm">3 mins</span>
+  </a>
+  <div class="dropdown-divider"></div>
+</ng-template>

@@ -1,0 +1,1212 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "../node_modules/bootstrap/dist/css/bootstrap.css";
+@import "../node_modules//font-awesome/css/font-awesome.min.css";
+@import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+@import "../node_modules//ionicons/css/ionicons.min.css";
+@import "../node_modules/admin-lte/dist/css/adminlte.min.css";
+
+@import "~ngx-toastr/toastr";
+
+@font-face {
+  font-family: "Ubuntu-Regular";
+  src: url("./assets/dist/fonts/Ubuntu-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Bold";
+  src: url("./assets/dist/fonts/Ubuntu-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-BoldItalic";
+  src: url("./assets/dist/fonts/Ubuntu-BoldItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Italic";
+  src: url("./assets/dist/fonts/Ubuntu-Italic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Light";
+  src: url("./assets/dist/fonts/Ubuntu-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-LightItalic";
+  src: url("./assets/dist/fonts/Ubuntu-LightItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Medium";
+  src: url("./assets/dist/fonts/Ubuntu-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-MediumItalic";
+  src: url("./assets/dist/fonts/Ubuntu-MediumItalic.ttf") format("truetype");
+}
+
+// Fonts Variables
+$ubuntu-regular: "Ubuntu-Regular";
+$ubuntu-bold: "Ubuntu-Bold";
+$ubuntu-bold-italic: "Ubuntu-BoldItalic";
+$ubuntu-italic: "Ubuntu-Italic";
+$ubuntu-light: "Ubuntu-Light";
+$ubuntu-italic-italic: "Ubuntu-LightItalic";
+$ubuntu-medium: "Ubuntu-Medium";
+$ubuntu-medium-italic: "Ubuntu-MediumItalic";
+$ubuntu-medium-italic: "Ubuntu-MediumItalic";
+//Colors
+$primary-color: #494339;
+$accent-primary-color: #5c3327;
+$secondary-color: #b19834;
+$accent-secondary-color: #c9b77c;
+$light-primary-color: #fafafa;
+$light-secondary-color: #ffffff;
+$accentlight-primary-color: #dedad0;
+$accentlight-secondary-color: #f0efec;
+//Sizes
+$size-titulo: 48px; //36pt
+$size-subtitulo: 32px; //36pt
+$size-menu: 27px; //21pt
+$size-submenu: 24px; //18pt
+$size-body-title: 22px; //16pt
+$size-notificaciones: 17px; //14pt
+
+mat-progress-spinner circle, .mat-spinner circle {
+  stroke:rgb(145, 117, 8)!important;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  /* remove scrollbar space */
+  background: transparent;
+  /* optional: just make scrollbar invisible */
+}
+
+/* /* /* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+  background: #ff0000;
+}
+
+body {
+  min-height: 100vh;
+  font-family: $ubuntu-regular;
+  size: $size-body-title;
+}
+
+#root {
+  height: calc(100vh - 112px);
+  min-height: 100vh;
+}
+
+.content-wrapper {
+  background-color: $light-secondary-color !important;
+  min-height: calc(100vh - 112px) !important;
+}
+
+.main-header button {
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.bg-main-siadci {
+  background-color: $accentlight-secondary-color !important;
+}
+
+// Login Page
+.login-box {
+  .logo-siadci {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    img {
+      width: 80px;
+    }
+  }
+  border-radius: 15px;
+  border: 1px solid $secondary-color;
+  background-color: $light-secondary-color;
+  padding: 20px 20px;
+  .card {
+    box-shadow: none;
+  }
+  .login-box-msg {
+    color: $accent-primary-color;
+    font-family: $ubuntu-regular;
+    font-size: $size-subtitulo;
+  }
+  input {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid $secondary-color;
+    border-radius: 0px;
+    font-family: $ubuntu-regular;
+    font-size: $size-body-title;
+  }
+  input:active {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid $accent-primary-color;
+  }
+  input:focus {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid $accent-primary-color;
+  }
+  button {
+    border-radius: 15px;
+    color: $accent-primary-color;
+    background-color: $accentlight-secondary-color;
+    text-align: center;
+    font-size: $size-body-title;
+    font-family: $ubuntu-regular;
+    &:hover {
+      color: $accentlight-secondary-color;
+      background-color: $accent-primary-color;
+    }
+  }
+}
+
+.notification-siadci{
+  background-color: $light-secondary-color !important;
+  border-radius: 0px !important;
+  border: 1px solid $accent-primary-color !important;
+  span{
+    color: $accent-primary-color;
+    font-size: $size-notificaciones;
+  }
+  a{
+    color: $accent-primary-color;
+    font-size: $size-notificaciones;
+    &:hover{
+      background-color: $accentlight-primary-color;
+    }
+  }
+  .user-panel{
+    &:hover{
+      background-color: $accentlight-primary-color;
+    }
+    .info{
+      a{
+        &:hover{
+          color: $accent-primary-color;
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.sidebar-collapse {
+  div.user-panel {
+    .search-wrapper {
+      width: 100%;
+      justify-content: center;
+      i {
+        border-radius: 25px;
+      }
+      input {
+        display: none;
+      }
+    }
+  }
+  aside.main-sidebar-siadci {
+    width: 4.6rem !important;
+    &:hover {
+      width: 350px !important;
+      background-color: $accentlight-secondary-color;
+      -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+      -moz-animation: fadein 1s; /* Firefox < 16 */
+      -ms-animation: fadein 1s; /* Internet Explorer */
+      -o-animation: fadein 1s; /* Opera < 12.1 */
+      animation: fadein 1s;
+      div.user-panel {
+        .search-wrapper {
+          width: 100%;
+          justify-content: center;
+          i {
+            border-radius: 25px 0 0 25px;
+          }
+          input {
+            display: block;
+          }
+        }
+      }
+      //mostrar textos
+      nav {
+        ul {
+          li {
+            border-bottom: 1px solid $accentlight-primary-color !important;
+            span {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+    nav {
+      ul {
+        li {
+          border-bottom: 0px transparent !important;
+          span {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+//Header component
+.main-header-siadci {
+  background-color: $light-secondary-color;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 5px;
+  .navbar-nav-siadci {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-start;
+    li {
+      list-style: none;
+      margin: 0 5px;
+      .logo-main-siadci {
+        width: 150px;
+      }
+    }
+    .icon-head {
+      width: 40px;
+    }
+    .bell {
+    }
+  }
+}
+.siadci-footer-head {
+  height: 20px;
+  background-color: $secondary-color;
+  width: 100%;
+}
+
+//Sidebar component
+.main-sidebar-siadci {
+  //  width: 350px !important;
+  width: calc(100% - 78%) !important;
+  z-index: 100 !important;
+}
+//mediaquery
+@media (min-width: 1620px) and (max-width: 2064px)  {
+  //insert styles here...
+  .main-sidebar-siadci{
+    width: calc(100% - 82%) !important;
+  }
+}
+@media (min-width: 2065px) and (max-width: 2564px)  {
+  .main-sidebar-siadci{
+    width: calc(100% - 86%) !important;
+  }
+}
+
+
+.content-wrapper {
+  margin-left: 350px !important;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  height: 8px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #343a40dd;
+  border-radius: 8px;
+}
+
+//  Dashboard Page
+.siadci-dashboard-page {
+  .sidci-card-body {
+    .dashboard-icon {
+      width: 150px;
+      height: 150px;
+    }
+    .inner-card-siadci {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      h3 {
+        font-weight: normal;
+        font-family: $ubuntu-regular;
+        font-size: $size-subtitulo;
+        margin-bottom: 20px;
+      }
+      p {
+        font-family: $ubuntu-regular;
+        font-size: $size-subtitulo;
+      }
+      .text-news {
+        color: #50656d;
+      }
+      .text-sends {
+        color: #499348;
+      }
+      .text-pendings {
+        color: #deaf3d;
+      }
+      .text-urgents {
+        color: #bd6027;
+      }
+    }
+  }
+}
+
+.sidebar-siacdi {
+  .search-wrapper {
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-flex-flow: row-reverse nowrap;
+    -ms-flex-flow: row-reverse nowrap;
+    flex-flow: row-reverse nowrap;
+    width: 350px;
+    .search-input {
+      background-color: $light-secondary-color;
+      border: 1px solid $accentlight-primary-color;
+      border-left: 0;
+      border-radius: 0 25px 25px 0;
+      color: $primary-color;
+      padding: 0.3rem 0.4rem;
+      font-family: $ubuntu-regular;
+      font-weight: lighter;
+      -webkit-transition: border-color 0.2s ease;
+      transition: border-color 0.2s ease;
+      width: 100%;
+      &:focus {
+        border-color: $accentlight-primary-color;
+        outline: none;
+      }
+    }
+    i {
+      background-color: $light-secondary-color;
+      border: 1px solid $accentlight-primary-color;
+      border-radius: 25px 0 0 25px;
+      border-right: 0;
+      color: $primary-color;
+      padding: 0.5rem 0.55rem;
+      -webkit-transition: border-color 0.2s ease;
+      transition: border-color 0.2s ease;
+    }
+  }
+  .nav-menu-siadci {
+    .nav-sidebar {
+      li {
+        &:focus {
+          outline: none;
+        }
+        border-bottom: 1px solid $accentlight-primary-color;
+        padding: 8px 0;
+        a {
+          color: $primary-color;
+          font-family: $ubuntu-regular;
+          font-size: $size-body-title;
+        }
+        .submenu-siadci {
+          li {
+            &:focus {
+              outline: none;
+            }
+            margin-left: 30px;
+            a {
+              font-family: $ubuntu-light;
+              font-size: $size-notificaciones;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// INIT Content page
+.content-responsive-table-siadci {
+  width: 95%;
+  overflow: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+.btn-siadci-without-line {
+  font-family: $ubuntu-medium;
+  font-size: $size-body-title;
+  color: $accent-primary-color;
+  padding: 5px 10px;
+  border-radius: 10px;
+  &:hover {
+    background-color: $accent-primary-color;
+    color: $accentlight-primary-color;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+.btn-alt-primary-siadci {
+  font-family: $ubuntu-regular;
+  font-size: $size-notificaciones;
+  background-color: $accent-primary-color;
+  color: $accentlight-secondary-color;
+  padding: 4px 30px;
+  border-radius: 20px;
+  border: none;
+  &:hover {
+    background-color: $accentlight-primary-color;
+    color: $accent-primary-color;
+    border: 1px solid $accent-primary-color;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+.btn-primary-siadci {
+  font-family: $ubuntu-regular;
+  font-size: $size-notificaciones;
+  background-color: $accentlight-secondary-color;
+  color: $accent-primary-color;
+  padding: 4px 30px;
+  border-radius: 20px;
+  border: none;
+  &:hover {
+    background-color: $accent-primary-color;
+    color: $accentlight-primary-color;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+.btn-secondary-siadci {
+  font-family: $ubuntu-regular;
+  font-size: $size-submenu;
+  background-color: $secondary-color;
+  color: $accent-primary-color;
+  padding: 10px 30px;
+  border-radius: 20px;
+  border: 1px solid $accent-primary-color;
+  &:hover {
+    background-color: $accent-primary-color;
+    color: $secondary-color;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+.btn-mini-siadci {
+  background-color: transparent !important;
+  border: 0px !important;
+  margin: 0 4px 0 0 !important;
+  color: $accent-primary-color !important;
+  font-size: 0.8em !important;
+  &:hover {
+    background-color: $accent-primary-color !important;
+    color: $accentlight-secondary-color !important;
+    border-radius: 5px;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+.outline-color {
+  background-color: transparent !important;
+  border: 1px solid $accent-primary-color !important;
+  color: $accent-primary-color !important;
+  &:hover {
+    background-color: $accent-primary-color !important;
+    color: $accentlight-secondary-color !important;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+.main-color {
+  background-color: $accent-primary-color !important;
+  color: $accentlight-primary-color !important;
+  border: 1px solid $accent-primary-color !important;
+  &:hover {
+    background-color: $accentlight-secondary-color !important;
+    color: $accent-primary-color !important;
+  }
+}
+.btn-in-table {
+  margin: 5px 4px !important;
+  font-size: 0.8em !important;
+  padding: 0 !important;
+  border-radius: 5px;
+  width: 122px !important;
+}
+.ui-button-siadci {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  color: $accent-primary-color !important;
+  font-size: 1.4rem !important;
+  &:focus {
+    box-shadow: none !important;
+  }
+}
+.mat-dialog-container {
+  background-color: $light-secondary-color !important;
+  border-radius: 0px !important;
+}
+.clear-siadci {
+  clear: both !important;
+}
+.header-siadci {
+  background-color: $accentlight-primary-color;
+  color: $accent-primary-color;
+  padding: 10px 0.5rem 0 !important;
+  h1 {
+    font-family: $ubuntu-bold;
+    font-size: $size-titulo !important;
+    margin: 15px 0 22px 20px !important;
+  }
+  h3 {
+    font-family: $ubuntu-medium;
+    font-size: $size-body-title;
+    margin-left: 20px;
+  }
+  .btn-siadci-without-line {
+    margin-right: 20px;
+  }
+}
+.content-sidci {
+  background-color: $light-secondary-color;
+  .card {
+    box-shadow: none !important;
+    border: none !important;
+  }
+}
+.card-siadci {
+  .table-siadci {
+    .search-wrapper-siadci {
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+      display: -webkit-inline-box;
+      display: -webkit-inline-flex;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      -webkit-flex-flow: row-reverse nowrap;
+      -ms-flex-flow: row-reverse nowrap;
+      flex-flow: row-reverse nowrap;
+      width: 40%;
+      .search-input {
+        background-color: $light-secondary-color;
+        border: 1px solid $accentlight-primary-color;
+        border-left: 0;
+        border-radius: 0 25px 25px 0;
+        color: $primary-color !important ;
+        padding: 0.29rem 0.4rem !important;
+        font-family: $ubuntu-regular !important ;
+        -webkit-transition: border-color 0.2s ease;
+        transition: border-color 0.2s ease;
+        width: 100%;
+        &:focus {
+          border-color: $accentlight-primary-color !important;
+          outline: none !important;
+          box-shadow: none;
+        }
+        &:hover {
+          border-color: $accentlight-primary-color !important;
+        }
+      }
+      i {
+        background-color: $light-secondary-color;
+        border: 1px solid $accentlight-primary-color;
+        border-radius: 25px 0 0 25px;
+        border-right: 0;
+        color: $primary-color;
+        padding: 0.5rem 0.55rem;
+        -webkit-transition: border-color 0.2s ease;
+        transition: border-color 0.2s ease;
+      }
+    }
+    .ui-table-caption {
+      border-top: 4px solid $accentlight-primary-color !important;
+      border-left: 4px solid $accentlight-primary-color !important;
+      border-right: 4px solid $accentlight-primary-color !important;
+    }
+    tr {
+      th {
+        input[type="text"] {
+          border-radius: 20px !important;
+          background-color: $light-secondary-color !important;
+          border: 1px solid $accentlight-primary-color !important;
+          color: $primary-color;
+          padding: 0.3rem 0.4rem !important;
+        }
+      }
+      th,
+      td {
+        border: 4px solid $accentlight-primary-color !important;
+        font-family: $ubuntu-medium;
+        font-size: $size-notificaciones;
+        color: $accent-primary-color !important;
+      }
+      &:nth-child(even) {
+        background-color: $accentlight-secondary-color !important;
+      }
+    }
+    .ui-paginator-bottom {
+      background-color: $accentlight-secondary-color !important;
+      border-left: 4px solid $accentlight-primary-color !important;
+      border-right: 4px solid $accentlight-primary-color !important;
+      border-bottom: 4px solid $accentlight-primary-color !important;
+      a.ui-paginator-element {
+        color: $accent-primary-color !important;
+      }
+      a.ui-state-active {
+        background-color: $accent-primary-color !important;
+        color: $accentlight-secondary-color !important;
+      }
+    }
+  }
+}
+.siadci-content-wrapper {
+  form {
+    .section-siadci {
+      background-color: $accentlight-secondary-color;
+      .mat-form-field {
+        font-family: $ubuntu-light !important;
+        font-size: $size-notificaciones;
+        label {
+          background: none !important;
+          font-family: $ubuntu-light !important;
+          font-size: $size-notificaciones !important;
+          color: $accent-primary-color !important;
+        }
+        .mat-form-field-outline {
+          .mat-form-field-outline-start,
+          .mat-form-field-outline-gap,
+          .mat-form-field-outline-end {
+            border: 0px !important;
+          }
+        }
+        .mat-form-field-infix {
+          .ui-state-focus {
+            box-shadow: 0 0 0 0.2em $accent-primary-color !important;
+          }
+          .ui-dropdown {
+            border: 0px !important;
+            border-radius: 20px !important;
+            .ui-dropdown-trigger {
+              border-radius: 0 20px 20px 0 !important;
+              &::before {
+                color: $accent-primary-color !important;
+              }
+            }
+            .ui-dropdown-panel {
+              box-shadow: 0 3px 6px 0 $accent-primary-color !important;
+              border: 1px solid $accent-primary-color !important;
+              border-radius: 0 0 20px 20px !important;
+              .ui-dropdown-filter-container {
+                input {
+                  border-radius: 20px !important;
+                  &:focus {
+                    box-shadow: 0 0 0 0.2em $accent-primary-color !important;
+                    border-color: $accent-primary-color !important;
+                  }
+                }
+              }
+              .ui-state-highlight {
+                background-color: $accent-primary-color !important;
+                color: $accentlight-secondary-color !important;
+              }
+              .ui-dropdown-item {
+                &:hover {
+                  background-color: transparent !important;
+                  color: $accent-primary-color !important;
+                }
+              }
+              .ui-dropdown-filter-icon {
+                &::before {
+                  color: $accent-primary-color !important;
+                }
+              }
+            }
+          }
+        }
+      }
+      .mat-form-field {
+        .mat-form-field-wrapper {
+          input {
+            background-color: $light-secondary-color !important;
+            border-radius: 20px !important;
+            padding: 10px 20px;
+          }
+          textarea{
+            background-color: $light-secondary-color;
+            border-radius: 20px;
+            padding: 15px;
+          }
+        }
+      }
+      .mat-form-field-type-mat-select{
+        .mat-form-field-infix{
+          background-color: $light-secondary-color;
+          border-radius: 20px;
+          padding: 10px !important;
+          margin-top: 0px !important;
+        }
+      }
+    }
+    .box-footer-siadci {
+      padding-bottom: 30px;
+      margin-left: 25px;
+    }
+  }
+}
+// END Content page
+
+// Init Stepper styles
+.siadci-stepper {
+  font-family: $ubuntu-regular;
+  color: $accent-primary-color;
+  .mat-step-header {
+    div {
+      font-family: $ubuntu-regular !important;
+      color: $accent-primary-color !important;
+      font-size: $size-notificaciones !important;
+      span.ng-star-inserted {
+        color: $light-secondary-color !important;
+      }
+    }
+    .mat-step-icon {
+      background-color: $accent-secondary-color !important;
+    }
+    .mat-step-icon-selected {
+      background-color: $accent-primary-color !important;
+      span {
+        background-color: $accent-primary-color !important;
+      }
+    }
+  }
+  form {
+    div.ui-toolbar {
+      background-color: $accentlight-secondary-color;
+      // background-color: $accentlight-primary-color;
+      border: 1px solid $accentlight-secondary-color;
+      border-radius: 0px;
+      .mat-slide-toggle-content {
+        font-size: $size-notificaciones !important;
+        font-weight: normal !important;
+        font-family: $ubuntu-medium !important;
+      }
+    }
+    fieldset {
+      background-color: $accentlight-secondary-color;
+      border: 1px solid $accentlight-secondary-color;
+      border-radius: 0px;
+      font-size: $size-notificaciones;
+      font-weight: normal !important;
+      font-family: $ubuntu-regular !important;
+      legend {
+        float: left;
+        a {
+          color: $accent-primary-color !important;
+          font-family: $ubuntu-medium !important;
+          font-size: $size-body-title !important;
+          border: 0px !important;
+          background-color: $accentlight-secondary-color !important;
+          .ui-fieldset-toggler {
+            display: none !important;
+          }
+          &:hover {
+            background-color: $accentlight-secondary-color !important;
+          }
+          &:focus {
+            box-shadow: none !important;
+          }
+        }
+      }
+      .mat-form-field {
+        font-family: $ubuntu-light !important;
+        font-size: $size-notificaciones;
+        label {
+          background: none !important;
+          font-family: $ubuntu-light !important;
+          font-size: $size-notificaciones !important;
+          color: $accent-primary-color !important;
+        }
+        .mat-form-field-outline {
+          .mat-form-field-outline-start,
+          .mat-form-field-outline-gap,
+          .mat-form-field-outline-end {
+            border: 0px !important;
+          }
+        }
+        .mat-form-field-infix {
+          .ui-state-focus {
+            box-shadow: 0 0 0 0.2em $accent-primary-color !important;
+          }
+          .ui-dropdown {
+            border: 0px !important;
+            border-radius: 20px !important;
+            .ui-dropdown-trigger {
+              border-radius: 0 20px 20px 0 !important;
+              &::before {
+                color: $accent-primary-color !important;
+              }
+            }
+            .ui-dropdown-panel {
+              box-shadow: 0 3px 6px 0 $accent-primary-color !important;
+              border: 1px solid $accent-primary-color !important;
+              border-radius: 0 0 20px 20px !important;
+              .ui-dropdown-filter-container {
+                input {
+                  border-radius: 20px !important;
+                  &:focus {
+                    box-shadow: 0 0 0 0.2em $accent-primary-color !important;
+                    border-color: $accent-primary-color !important;
+                  }
+                }
+              }
+              .ui-state-highlight {
+                background-color: $accent-primary-color !important;
+                color: $accentlight-secondary-color !important;
+              }
+              .ui-dropdown-item {
+                &:hover {
+                  background-color: transparent !important;
+                  color: $accent-primary-color !important;
+                }
+              }
+              .ui-dropdown-filter-icon {
+                &::before {
+                  color: $accent-primary-color !important;
+                }
+              }
+            }
+          }
+        }
+      }
+      span.rounded-pill {
+        background-color: $accentlight-primary-color;
+        color: $accent-primary-color;
+        font-family: $ubuntu-medium;
+        font-size: $size-notificaciones;
+        padding: 5px 80px;
+      }
+      .search-content-siadci {
+        border-radius: 20px 0 0 20px;
+        background-color: $light-secondary-color;
+        display: flex;
+      }
+      .mat-chip-list {
+        width: 100%;
+        border-radius: 0 20px 20px 0;
+        background-color: $light-secondary-color;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-right: 10px;
+      }
+      .chipGrupo {
+        background-color: $secondary-color !important;
+        color: $accent-primary-color !important  ;
+        font-family: $ubuntu-medium !important;
+      }
+      .chipActor {
+        background-color: $secondary-color !important;
+        color: $accent-primary-color !important  ;
+        font-family: $ubuntu-medium !important;
+      }
+      .chipContacto {
+        background-color: $secondary-color !important;
+        color: $accent-primary-color !important  ;
+        font-family: $ubuntu-medium !important;
+      }
+      .mat-form-field-infix {
+        input {
+          background-color: $light-secondary-color !important;
+          border-radius: 20px !important;
+          padding: 12px 10px !important;
+          color: $accent-primary-color !important;
+          font-family: $ubuntu-medium !important;
+        }
+      }
+    }
+  }
+}
+// End Stepper styles
+
+// Init modal styles
+.cdk-overlay-pane {
+  width: 64% !important;
+}
+.wrapper-modal-siadci {
+  h1 {
+    color: $accent-primary-color;
+    font-family: $ubuntu-bold;
+    font-size: $size-titulo;
+  }
+  p {
+    color: $accent-primary-color;
+    font-family: $ubuntu-regular;
+    font-size: $size-submenu;
+    margin-left: 15px;
+    margin-bottom: 15px;
+  }
+  .mat-dialog-content:first-of-type {
+    background-color: $accentlight-secondary-color;
+    margin-top: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 0px;
+    // overflow: visible;
+    padding-top: 10px;
+    .radio-group-siadci {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      .mat-radio-checked {
+        .mat-radio-outer-circle {
+          border-color: $secondary-color !important;
+          background-color: $secondary-color !important;
+        }
+      }
+      .mat-radio-button {
+        .mat-radio-container {
+          .mat-radio-inner-circle {
+            width: 0px !important;
+            height: 0px !important;
+          }
+          .mat-radio-outer-circle {
+            border-color: $accent-secondary-color !important;
+          }
+        }
+        .mat-radio-label-content {
+          color: $accent-primary-color !important;
+          font-family: $ubuntu-light !important;
+          font-size: $size-body-title !important ;
+        }
+      }
+    }
+    .mat-chip-list {
+      width: 100%;
+      border-radius: 20px;
+      background-color: $light-secondary-color;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-right: 10px;
+      padding-left: 10px;
+    }
+    .chipGrupo {
+      background-color: $secondary-color !important;
+      color: $accent-primary-color !important  ;
+      font-family: $ubuntu-medium !important;
+    }
+    .chipActor {
+      background-color: $secondary-color !important;
+      color: $accent-primary-color !important  ;
+      font-family: $ubuntu-medium !important;
+    }
+    .chipContacto {
+      background-color: $secondary-color !important;
+      color: $accent-primary-color !important  ;
+      font-family: $ubuntu-medium !important;
+    }
+    span.rounded-pill {
+      background-color: $accentlight-primary-color;
+      color: $accent-primary-color;
+      font-family: $ubuntu-medium;
+      font-size: $size-notificaciones;
+      padding: 5px 80px;
+    }
+  }
+  .mat-dialog-actions {
+    background-color: $light-secondary-color;
+    display: flex;
+    justify-content: center;
+    padding: 15px 0;
+  }
+  .mat-form-field {
+    font-family: $ubuntu-light !important;
+    font-size: $size-notificaciones;
+    label {
+      background: none !important;
+      font-family: $ubuntu-light !important;
+      font-size: $size-notificaciones !important;
+      color: $accent-primary-color !important;
+    }
+    .mat-form-field-outline {
+      .mat-form-field-outline-start,
+      .mat-form-field-outline-gap,
+      .mat-form-field-outline-end {
+        border: 0px !important;
+      }
+    }
+    .mat-form-field-infix {
+      .ui-state-focus {
+        box-shadow: 0 0 0 0.2em $accent-primary-color !important;
+      }
+      .ui-dropdown {
+        border: 0px !important;
+        border-radius: 20px !important;
+        .ui-dropdown-trigger {
+          border-radius: 0 20px 20px 0 !important;
+          &::before {
+            color: $accent-primary-color !important;
+          }
+        }
+        .ui-dropdown-panel {
+          box-shadow: 0 3px 6px 0 $accent-primary-color !important;
+          border: 1px solid $accent-primary-color !important;
+          border-radius: 0 0 20px 20px !important;
+          .ui-dropdown-filter-container {
+            input {
+              border-radius: 20px !important;
+              &:focus {
+                box-shadow: 0 0 0 0.2em $accent-primary-color !important;
+                border-color: $accent-primary-color !important;
+              }
+            }
+          }
+          .ui-state-highlight {
+            background-color: $accent-primary-color !important;
+            color: $accentlight-secondary-color !important;
+          }
+          .ui-dropdown-item {
+            &:hover {
+              background-color: transparent !important;
+              color: $accent-primary-color !important;
+            }
+          }
+          .ui-dropdown-filter-icon {
+            &::before {
+              color: $accent-primary-color !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// End modal styles
+
+/*  */
+
+.card.user-list tr:hover {
+  cursor: pointer;
+}
+
+.mat-fab {
+  cursor: pointer;
+}
+
+.mat-mini-fab{
+  cursor: pointer;
+}
+
+.card.card-primary .card-header {
+  background-color: #4f5962;
+}
+
+*:disabled {
+  cursor: not-allowed;
+}
+
+.card {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.w100-container {
+  width: 100%;
+}
+
+.logo-veracruz {
+  height: 50px;
+  width: 120px;
+  margin: 0 15px;
+}
+
+.logo-veracruz2 {
+  height: 50px;
+  width: 90px;
+  margin: 0 0px;
+}
+
+legend {
+  width: fit-content !important;
+  font-size: 0.7rem !important;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+@media print {
+  body {
+    min-width: auto !important;
+  }
+
+ 
+}

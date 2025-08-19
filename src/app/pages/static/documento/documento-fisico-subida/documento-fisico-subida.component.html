@@ -1,0 +1,344 @@
+<section class="content-header header-siadci">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>Formulario de Documento Físico Personalizado</h1>
+      </div>
+      <div class="col-sm-6">
+        <h3>Documento Físico</h3>
+      </div>
+      <div class="col-sm-6 text-right">
+        <a class="btn-siadci-without-line" [routerLink]="pathRegreso">
+          <i class="fas fa-th-large"></i>
+          {{ pathRegresoMensaje }}
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content content-sidci">
+  <!-- Default box -->
+  <div class="container-fluid">
+    <!-- <div class="card"> -->
+
+    <!-- <div class="card-body"> -->
+    <div class="container-fluid">
+      <!-- Small boxes (Stat box) -->
+
+      <mat-horizontal-stepper class="siadci-stepper" [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="formGroup">
+          <ng-container *ngIf="ClaseEnpoint != null">
+            <form [formGroup]="formGroup" *ngIf=" formGroup">
+              <ng-template matStepLabel>Formulario</ng-template>
+              <p-fieldset legend="Seleccionar" [toggleable]="true" style="width: 95%">
+                <div class="row">
+                  <div class="col">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Tipo correspondencia</mat-label>
+
+                      <input matInput style="display: none" formControlName="entradaSalida" required />
+
+                      <p-dropdown [options]="entradaList" formControlName="entradaSalida"
+                        (onChange)="entradaSalidaChange($event)" [(ngModel)]="this.edicionRegistro.entradaSalida">
+                      </p-dropdown>
+
+                      <mat-error *ngIf="f.entradaSalida.hasError('required')">
+                        <strong>Este valor </strong> es requerido.
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col">
+                    <ng-container *ngIf="f != null">
+                      <app-dropdown #tipoDocumento rutaClase="#/components/schemas/TipoDocumento"
+                        [nombreCampo]="'tipoDocumentoId'" nombreClase="Tipo documento"
+                        [valor]="edicionRegistro['tipoDocumentoId']" [valorId]="1" placeholder="Seleccionar"
+                        (editControl)="tipoDocumentoChange($event)" style="width: 100%">
+                      </app-dropdown>
+                    </ng-container>
+                  </div>
+
+                  <div class="col">
+                    <ng-container *ngIf="f != null">
+                      <app-dropdown rutaClase="#/components/schemas/Prioridad" [nombreCampo]="'prioridadId'"
+                        [valor]="edicionRegistro['prioridadId']" [valorId]="1" placeholder="Seleccionar"
+                        (editControl)="f['prioridadId'].setValue($event)" style="width: 100%">
+                      </app-dropdown>
+                    </ng-container>
+                  </div>
+
+                  <div class="col">
+                    <ng-container *ngIf="f != null">
+                      <app-dropdown rutaClase="#/components/schemas/TipoPrivacidad" [nombreCampo]="'tipoPrivacidadId'"
+                        [valor]="edicionRegistro['tipoPrivacidadId']" [valorId]="1" placeholder="Selecciona el tipo de"
+                        nombreClase="Privacidad" (editControl)="f['tipoPrivacidadId'].setValue($event)"
+                        style="width: 100%">
+                      </app-dropdown>
+                    </ng-container>
+                  </div>
+                </div>
+                <br />
+
+                <!-- </div>-->
+              </p-fieldset>
+
+              <p-fieldset legend="Destino" [toggleable]="true" style="width: 100%">
+                <div *ngIf="f.tipoDocumentoId.value">
+                  <div class="row">
+                    <div class="col">
+                      <h4><span class="rounded-pill">Funcionario</span></h4>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="f.entradaSalida.value == 'S'">
+
+                  <div>
+                    <div class="col-12">
+                      <mat-form-field appearance="outline" style="width: 100%">
+                        <label>Remitente</label>
+
+                        <input matInput style="display: none" required />
+
+                        <p-dropdown #remitente [options]="remitentesList" (onChange)="tests($event)"
+                          [style]="{ width: '100%' }" [(ngModel)]="remitenteSeleccionado">
+                        </p-dropdown>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="row" *ngIf="f.tipoDocumentoId.value.tipoDocumentoId == 3">
+
+                    <div class="col-12">
+
+                      <mat-form-field appearance="outline" style="width: 100%">
+                        <mat-label>Destinatario</mat-label>
+
+                        <input matInput style="display: none" required />
+
+                        <p style="height: 14px"></p>
+
+                        <p-multiSelect [options]="gruposOrganizacionales"
+                          [(ngModel)]="gruposOrganizacionalesSelecionados" optionLabel="nombre"
+                          [style]="{ width: '100%' }" [ngModelOptions]="{standalone: true}"
+                          defaultLabel="Selecciona los destinatarios"
+                          selectedItemsLabel="{0} destinatario(s) seleccionados">
+                        </p-multiSelect>
+
+                        <mat-error *ngIf="f.remitenteDestinatarioId.hasError('required')">
+                          <strong>Este valor </strong> es requerido.
+                        </mat-error>
+                      </mat-form-field>
+
+                    </div>
+                  </div>
+
+
+                  <div class="row" *ngIf="f.tipoDocumentoId.value.tipoDocumentoId != 3">
+
+                    <div class="col-10">
+                      <mat-form-field appearance="outline" style="width: 100%">
+                        <mat-label>Destinatario</mat-label>
+
+                        <input matInput style="display: none" formControlName="remitenteDestinatarioId" />
+
+                        <p style="height: 14px"></p>
+
+                        <p-dropdown [options]="ListadoContactoModificado" filter="true" optionLabel="NombreCompleto"
+                          formControlName="remitenteDestinatarioId" placeholder="Seleccionar destinatario">
+                        </p-dropdown>
+
+                        <mat-error *ngIf="f.remitenteDestinatarioId.hasError('required')">
+                          <strong>Este valor </strong> es requerido.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+
+                    <div class="col-2" style="margin-bottom: auto; margin-top: auto">
+                      <button class="btn-alt-primary-siadci" (click)="openDialogContacto()">
+                        Nuevo
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <p></p>
+
+                <div class="row">
+                  <div class="col">
+                    <mat-form-field class="mod-chip-list" appearance="outline">
+                      <label> Ccp.</label>
+
+                      <div style="display: flex">
+                        <div class="search-content-siadci">
+                          <button pButton (click)="openDialog(this.Cpp, 'CPP')" type="button" icon="pi pi-search"
+                            class="ui-button-siadci"></button>
+                        </div>
+
+                        <mat-chip-list #chipListCPP>
+                          <mat-chip *ngFor="let copia of Cpp" [selectable]="selectable" [removable]="removable"
+                            (removed)="removeCpp(copia)" [ngClass]="copia.color" selected>
+                            {{ copia.nombre }}
+                            <mat-icon matChipRemove *ngIf="removable">cancel
+                            </mat-icon>
+                          </mat-chip>
+                          <input [matChipInputFor]="chipListCPP" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                            [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addCpp($event)" />
+                        </mat-chip-list>
+                      </div>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </p-fieldset>
+
+              <p></p>
+
+              <p-fieldset legend="Redacción" [toggleable]="true" style="width: 95%">
+
+
+                <div class="row">
+                  <div class="col">
+                    <mat-form-field appearance="outline" class="w100-container">
+                      <mat-label>Asunto</mat-label>
+
+                      <input matInput type="text" placeholder="" formControlName="asunto" />
+
+                      <mat-error *ngIf="f['asunto'].hasError('required')">
+                        <strong>Este valor </strong> es requerido.
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row" *ngIf="f.entradaSalida.value == 'S'">
+                  <div class="col">
+                    <mat-form-field appearance="outline" class="w100-container">
+                      <mat-label>Contenido</mat-label>
+
+                      <p style="height: 20px"></p>
+
+                      <p-editor formControlName="contenido" [(ngModel)]="this.edicionRegistro.contenido"
+                        [style]="{ height: 'max-content' }">
+                      </p-editor>
+
+                      <textarea matInput formControlName="contenido" style="min-height: 100px; height: max-content"
+                        style="display: none" [(value)]="this.edicionRegistro.contenido">
+                        </textarea>
+
+                      <mat-error *ngIf="f['contenido'].hasError('required')">
+                        <strong>Este valor </strong> es requerido.
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+
+                <div class="row" *ngIf="id=='new'">
+                  <div class="col" *ngIf="f.entradaSalida.value == 'S'">
+                    <mat-form-field appearance="outline" class="w100-container">
+                      <mat-label>Elaborado por</mat-label>
+                      <input matInput type="text" placeholder="" formControlName="elaboradoPor" />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row" *ngIf="id!='new'">
+                  <div class="col">
+                    <mat-form-field appearance="outline" class="w100-container">
+                      <mat-label>Elaborado por</mat-label>
+                      <input matInput type="text" placeholder="" formControlName="elaboradoPor" readonly />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+              </p-fieldset>
+
+              <p></p>
+
+              <div>
+
+
+                <p-fieldset legend="Oficio original" [toggleable]="true" style="width: 95%">
+                  <div class="row" *ngIf="imagenLoadingDocumentoOriginal">
+                    <div class="col-12" style="margin-left: 40%; margin-right: 50%">
+                      <p-progressSpinner></p-progressSpinner>
+                    </div>
+                  </div>
+
+                  <div>Importante: El remplazo del folio se debe realizar con un PDF generado a partir de un documento.</div>
+
+                  <div class="row">
+                    <div class="col" class="w100-container">
+                      <label for="">Texto a reemplazar en el pdf</label>
+                      <input type="text" [(value)]="RemplazoFolio" (change)="cambioRemplazo($event)" />
+                    </div>
+                  </div>
+
+
+                  <app-documento-base64 #AdjuntarDocumentoFisico [DocumentoFisico]="documentoFisicoOriginal"
+                    label="Selecciona el oficio original">
+                  </app-documento-base64>
+                </p-fieldset>
+              </div>
+              <p></p>
+
+              <p-fieldset legend="Adjuntos y Carga de acuses" [toggleable]="true" style="width: 95%">
+                <div class="row" *ngIf="imagenLoadingAnexoDocumentoFisico">
+                  <div class="col-12" style="margin-left: 40%; margin-right: 50%">
+                    <p-progressSpinner></p-progressSpinner>
+                  </div>
+                </div>
+
+                <app-documento-base64 [listaDocumentoFisico]="ListaAnexo64" label="Selecciona los archivos">
+                </app-documento-base64>
+              </p-fieldset>
+
+              <p></p>
+
+              <button class="btn-secondary-siadci" (click)="Pdf()">
+                Vista Previa
+              </button>
+            </form>
+          </ng-container>
+        </mat-step>
+        <mat-step>
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Vista previa</ng-template>
+
+            <div *ngIf="pdfFormart != null">
+              <ngx-extended-pdf-viewer [src]="pdfFormart" useBrowserLocale="true" height="80vh">
+              </ngx-extended-pdf-viewer>
+            </div>
+
+            <div>
+              <button class="btn-secondary-siadci" (click)="Guardar()">Guardar</button>
+              <button class="btn-secondary-siadci" (click)="FolioRemplazar()">FolioRemplazar</button>
+
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Guardado</ng-template>
+
+          <div *ngIf="pdfFinal != null">
+            <ngx-extended-pdf-viewer [src]="pdfFinal" useBrowserLocale="true" height="80vh">
+            </ngx-extended-pdf-viewer>
+          </div>
+
+          <div>
+            <button type="button" class="btn-secondary-siadci" (click)="RedireccionarDocF();" href="#">
+              Regresar
+            </button>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+
+      <!-- /.row -->
+    </div>
+  </div>
+  <!-- /.card -->
+</section>
+<!-- /.content -->

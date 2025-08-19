@@ -1,0 +1,182 @@
+<section class="content-header header-siadci">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>Listado Documentos por Firmar</h1>
+      </div>
+      <div class="col-sm-6">
+        <h3>Muestra los registros de Documentos por Firmar</h3>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<section class="content content-sidci">
+  <!-- Default box -->
+  <div class="container-fluid">
+    <div class="card-siadci py-4">
+      <div class="table-siadci">
+        <p-table
+          #dt
+          class="ng2-smart-table"
+          [columns]="cols"
+          [value]="data"
+          paginator="true"
+          [rows]="10"
+        >
+          <ng-template pTemplate="caption">
+            <!-- <div style="text-align: left">
+              <i class="fa fa-search" style="margin: 4px 4px 0 0"></i>
+              <input
+                type="text"
+                pInputText
+                size="100"
+                placeholder="Filtro global"
+                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                style="width: auto"
+              />
+            </div> -->
+            <div class="search-wrapper-siadci d-flex">
+              <input
+                type="text"
+                pInputText
+                placeholder="Filtro global"
+                class="search-input"
+                (input)="dt.filterGlobal($event.target.value, 'contains')"
+              />
+              <i class="fa fa-search"></i>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                {{ col.header }}
+                <p-sortIcon
+                  [field]="col.field"
+                  [pSortableColumn]="col.field"
+                ></p-sortIcon>
+
+
+                <input
+                  *ngSwitchCase="'folioSalida'"
+                  pInputText
+                  type="text"
+                  placeholder="Contiene"
+                  class="ui-column-filter"
+                  style="width: 100%"
+                  (input)="
+                    dt.filter($event.target.value, col.field, 'contains')
+                  "
+                />
+
+                <input
+                  *ngSwitchCase="'fechaSalida'"
+                  pInputText
+                  type="text"
+                  placeholder="Contiene"
+                  class="ui-column-filter"
+                  style="width: 100%"
+                  (input)="
+                    dt.filter($event.target.value, col.field, 'contains')
+                  "
+                />
+
+                <input
+                  *ngSwitchCase="'destinatarioNombre'"
+                  pInputText
+                  type="text"
+                  placeholder="Contiene"
+                  class="ui-column-filter"
+                  style="width: 100%"
+                  (input)="
+                    dt.filter($event.target.value, col.field, 'contains')
+                  "
+                />
+
+                <input
+                  *ngSwitchCase="'documentoAsunto'"
+                  pInputText
+                  type="text"
+                  placeholder="Contiene"
+                  class="ui-column-filter"
+                  style="width: 100%"
+                  (input)="
+                    dt.filter($event.target.value, col.field, 'contains')
+                  "
+                />
+
+                <input
+                  *ngSwitchCase="'destinatarioPuesto'"
+                  pInputText
+                  type="text"
+                  placeholder="Contiene"
+                  class="ui-column-filter"
+                  style="width: 100%"
+                  (input)="
+                    dt.filter($event.target.value, col.field, 'contains')
+                  "
+                />
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+              <td *ngFor="let col of columns">
+                <div
+                  style="display: flex; white-space: normal; overflow: hidden"
+                >
+                  <ng-container *ngIf="col.field == 'Acciones'">
+                    <div style="display: block">
+                      <!-- <button pButton type="button" label="Visor" icon="fas fa-file-alt" class="ui-button-success"
+                        (click)="visorDocumentos(rowData) "></button>-->
+
+                      <button
+                        pButton
+                        type="button"
+                        label="Visor"
+                        class="btn-in-table main-color"
+                        (click)="visorDocumentos(rowData)"
+                      ></button>
+
+                      <!--<button mat-stroked-button color="primary" (click)='Autorizar(rowData)'>Autorizar</button>-->
+                      <ng-container *ngIf="OpenApi.BuscarPermiso('/webresources/documentofisico/autorizardoc/{id}','put')">
+                        <button pButton type="button" 
+                        (click)="Autorizar(rowData)" 
+                        label="Autorizar" 
+                        class="btn-in-table outline-color">
+                       </button>
+                      </ng-container>
+                       
+ 
+                    <!--
+                      <button
+                        pButton
+                        type="button"
+                        (click)="Autorizar(rowData)"
+                        label="Autorizar"
+                        class="btn-in-table outline-color"
+                      ></button>
+
+                      <button pButton  type="button" [routerLink]="['/bucketsalida/visor/', rowData.documentoId.documentoId]" icon="fas fa-file-alt"
+                                class="ui-button-success"></button>
+
+                                <button pButton type="button" [routerLink]="['/documento/formulario/new']" icon ="fas fa-reply"
+                                class="ui-button-secondary"></button>
+
+
+                              <button pButton (click)="borrarBucket(rowData, i)" type="button" icon="pi pi-trash"
+                                class="ui-button-danger"></button>-->
+                    </div>
+                  </ng-container>
+                  {{ selectorValores(rowData, col.field) }}
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <!-- <div class="card-footer"></div> -->
+    </div>
+  </div>
+</section>

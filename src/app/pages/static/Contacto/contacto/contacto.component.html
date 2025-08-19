@@ -1,0 +1,290 @@
+<section class="content-header header-siadci">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>Formulario Contacto</h1>
+        </div>
+        <div class="col-sm-6">
+          <h3>Contacto</h3>
+        </div>
+        <div class="col-sm-6 text-right">
+          <a
+            class="btn-siadci-without-line"
+            [routerLink]="['/contacto/lista']"
+          >
+            <i class="fas fa-th-large"></i>
+            Ir a listado Contacto
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  
+  <section class="content content-sidci">
+    <div class="container-fluid">
+      <div class="siadci-content-wrapper pt-3">
+        <!-- <div class="card-body"> -->
+        <!-- <div class="container-fluid"> -->
+  
+        <form [formGroup]="formGroup">
+          <div class="box-body">
+            <!-- <div style="width: 95%  ; margin-left: auto;   margin-right: auto;"> -->
+  
+            <!-- <div style="width: 90% ; margin-top: 20px"> -->
+            <div class="row section-siadci mx-4 my-3 py-3 ">
+              <div class=" col-sm-4 col-lg-4">
+                <!-- <label>Nombre Funcionario</label> -->
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label> Nombre </mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Nombre "
+                    formControlName="nombre"
+                    [(value)]="Contacto.nombre"
+                    required
+                  />
+  
+                  <mat-error *ngIf="f.nombre.hasError('required')">
+                    <strong>Este valor </strong> es requerido.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+  
+              <div class=" col-sm-4 col-lg-4">
+                <!-- <label>Apellido Paterno</label> -->
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Apellido Paterno</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Apellido Paterno"
+                    formControlName="apellidoPaterno"
+                    [(value)]="Contacto.apellidoPaterno"
+                    required
+                  />
+  
+                  <mat-error *ngIf="f.apellidoPaterno.hasError('required')">
+                    <strong>Este valor </strong> es requerido.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+  
+              <div class=" col-sm-4 col-lg-4">
+                <!-- <label>Apellido Materno</label> -->
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Apellido Materno</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Apellido Materno"
+                    formControlName="apellidoMaterno"
+                    [(value)]="Contacto.apellidoMaterno"
+                    required
+                  />
+  
+                  <mat-error *ngIf="f.apellidoMaterno.hasError('required')">
+                    <strong>Este valor </strong> es requerido.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+  
+              <div class=" col-sm-4 col-lg-4">
+                <!-- <label>Telefono</label> -->
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Teléfono</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Teléfono"
+                    formControlName="telefono"
+                    [(value)]="Contacto.telefono"
+                    
+                  />
+  
+                  <!--<mat-error *ngIf="f.telefono.hasError('required')">
+                    <strong>Este valor </strong> es requerido.
+                  </mat-error>-->
+                </mat-form-field>
+              </div>
+  
+              <div class=" col-sm-4 col-lg-4">
+                <!-- <label>Correo electrónico</label> -->
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Correo Electrónico</mat-label>
+                  <input
+                    matInput
+                    type="email"
+                    placeholder="Correo electrónico"
+                    formControlName="correoElectronico"
+                    [(value)]="Contacto.correoElectronico"
+                    
+                  />
+  
+                  <!--<mat-error *ngIf="f.correoElectronico.hasError('required')">
+                    <strong>Este valor </strong> es requerido.
+                  </mat-error>-->
+                </mat-form-field>
+              </div>
+
+
+              <div class=" col-sm-4 col-lg-4">
+                <!-- <label>Correo electrónico</label> -->
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Rfc</mat-label>
+                  <input
+                    matInput
+                    type="email"
+                    placeholder="Correo electrónico"
+                    formControlName="rfc"
+                    [(value)]="Contacto.rfc"
+                    
+                  />
+  
+                  <!--<mat-error *ngIf="f.rfc.hasError('required')">
+                    <strong>Este valor </strong> es requerido.
+                  </mat-error>-->
+                </mat-form-field>
+              </div>
+
+              <div class=" col-sm-4 col-lg-4">
+                <!-- <label>Correo electrónico</label> -->
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Curp</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Curp"
+                    formControlName="curp"
+                    [(value)]="Contacto.curp"
+                    
+                  />
+  
+                  <!--<mat-error *ngIf="f.curp.hasError('required')">
+                    <strong>Este valor </strong> es requerido.
+                  </mat-error>-->
+                </mat-form-field>
+              </div>
+
+              <div class=" col-sm-4 col-lg-4">
+                <!-- <label>Correo electrónico</label> -->
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Puesto</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Curp"
+                    formControlName="puesto"
+                    [(value)]="Contacto.puesto"
+                    required
+                    />
+                    
+                  <mat-error *ngIf="f.puesto.hasError('required')">
+                    <strong>Este valor </strong> es requerido.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+  
+              <div class=" col-sm-4 col-lg-4">
+                <!-- <label>Correo electrónico</label> -->
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Dependencia</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Dependencia"
+                    formControlName="dependencia"
+                    [(value)]="Contacto.dependencia"
+                    
+                  />
+  
+                  <!--<mat-error *ngIf="f.dependencia.hasError('required')">
+                    <strong>Este valor </strong> es requerido.
+                  </mat-error>-->
+                </mat-form-field>
+              </div>
+  
+            
+  
+              <div class=" col-sm-4 col-lg-4">
+                <!-- <label>Tipo Funcionario</label> -->
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Tipo Contacto</mat-label>
+                  <mat-select
+                    placeholder="Tipo Contacto"
+                    [(value)]="TCss"
+                    formControlName="tipoContactoId"
+                    
+                  >
+                    <mat-option *ngFor="let tc of TCs" [value]="tc.tipoContactoId">
+                      {{ tc.nombre }}
+                    </mat-option>
+                  </mat-select>
+  
+                  <!--<mat-error *ngIf="f.tipoContactoId.hasError('required')">
+                    <strong>Este valor </strong> es requerido.
+                  </mat-error>-->
+                </mat-form-field>
+              </div>
+  
+              <div class=" col-sm-4 col-lg-4">
+                <!-- <label>Tratamiento</label> -->
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Grado Académico</mat-label>
+                  <mat-select
+                    placeholder="Grado académico"
+                    [(value)]="Tratamientoss"
+                    formControlName="tratamientoId"
+                    
+                  >
+                    <mat-option
+                      *ngFor="let tr of Tratamientos"
+                      [value]="tr.tratamientoId"
+                    >
+                      {{ tr.nombre }}
+                    </mat-option>
+                  </mat-select>
+  
+                  <!--<mat-error *ngIf="f.tratamientoId.hasError('required')">
+                    <strong>Este valor </strong> es requerido.
+                  </mat-error>-->
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- </div> -->
+            <!-- </div> -->
+          </div>
+          <div class="box-footer-siadci">
+            <button
+              *ngIf="isSave"
+              type="submit"
+              class="btn-primary-siadci"
+              (click)="guardarContacto()"
+            >
+              <i class="fa fa-save"></i> Agregar
+            </button>
+  
+            <button
+              *ngIf="!isSave"
+              type="submit"
+              class="btn-primary-siadci"
+              (click)="guardarContacto()"
+            >
+              <i class="fa fa-edit"></i> Guardar cambios
+            </button>
+          </div>
+        </form>
+  
+        <!-- </div> -->
+        <!-- </div> -->
+  
+        <!-- <div class="card-footer">
+          <div style="margin-left: 3%;">
+  
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </section>
+  

@@ -1,0 +1,91 @@
+<section class="content-header header-siadci">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>Formulario Turno</h1>
+      </div>
+      <div class="col-sm-12">
+        <h3>Turno</h3>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<section class="content content-sidci">
+  <div class="container-fluid">
+    <div class="siadci-content-wrapper">
+      <form [formGroup]="formGroup">
+        <div class="box-body">
+          <div class="row mx-4 py-3">
+            <div class="section-siadci py-3 col-12">
+              <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Destinatario</mat-label>
+
+                <input
+                  matInput
+                  style="display: none"
+                  formControlName="organizacionIdDestino"
+                  required
+                />
+
+                <p style="height: 14px"></p>
+
+                <p-dropdown
+                  [options]="ListadoContacto"
+                  filter="true"
+                  placeholder="Seleccionar funcionario"
+                  optionLabel="NombreCompleto"
+                  formControlName="organizacionIdDestino"
+                >
+                </p-dropdown>
+
+                <mat-error *ngIf="f.organizacionIdDestino.hasError('required')">
+                  <strong>Este valor </strong> es requerido.
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="section-siadci py-3 col-12">
+              <mat-form-field appearance="outline" style="width: 100%">
+              <mat-label>Instrucciones</mat-label>
+                <textarea
+                  matInput
+                  type="text"
+                  placeholder="Instrucciones"
+                  formControlName="instrucciones"
+                  [(value)]="TI.instrucciones"
+                  
+                ></textarea>
+
+                <!--<mat-error *ngIf="f.instrucciones.hasError('required')">
+                  <strong>Este valor </strong> es requerido.
+                </mat-error>-->
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="box-footer-siadci">
+          <button
+            *ngIf="isSave"
+            type="submit"
+            class="btn-primary-siadci"
+            (click)="guardarTurnoBucket();"
+          >
+            <i class="fa fa-save"></i> Agregar
+          </button>
+
+          <button
+            *ngIf="!isSave"
+            type="submit"
+            class="btn-primary-siadci"
+            (click)="guardarTurnoBucket()"
+          >
+            <i class="fa fa-edit"></i> Guardar cambios
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

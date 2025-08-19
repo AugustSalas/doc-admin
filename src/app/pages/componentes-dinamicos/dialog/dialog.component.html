@@ -1,0 +1,96 @@
+<form [formGroup]="formGroupDialog">
+    <div class="row">
+
+        <div *ngFor="let propiedad of  ListadoClaseCompleto " [class]="TipoColumna(propiedad)"
+            [ngSwitch]="TipoFormulario(propiedad)">
+
+            <div style="display: flex;" [hidden]="ocultarCampos(propiedad)">
+
+                <ng-container *ngSwitchCase="'boolean'">
+
+                    <div style="margin-left: auto; margin-right: auto;">
+                        <mat-slide-toggle [checked]="this.edicionRegistro[propiedad]" disabled="true">
+                            {{this.apiService.camelCaseToTitleCase( CambioNombre(propiedad) )}}
+                        </mat-slide-toggle>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'string'">
+                    <ng-container [ngSwitch]="TipoFormularioFormato(propiedad)">
+                        <ng-container *ngSwitchCase="'date-time'">
+
+                            <mat-form-field>
+                                <mat-label>{{this.apiService.camelCaseToTitleCase( CambioNombre(propiedad) )}}</mat-label>
+                                <input matInput [matDatepicker]="picker" [formControlName]="propiedad"
+                                    (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
+                                <mat-datepicker-toggle matSuffix [for]="picker" (change)="fechaCambio($event)">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #picker (change)="fechaCambio($event)"></mat-datepicker>
+                                <mat-error *ngIf="f[propiedad].hasError('required')">
+                                    <strong>Este valor </strong> es requerido.
+                                </mat-error>
+                            </mat-form-field>
+
+                        </ng-container>
+
+                        <ng-container *ngSwitchDefault>
+                            <mat-form-field appearance="outline" class="w100-container">
+                                <mat-label>{{this.apiService.camelCaseToTitleCase( CambioNombre(propiedad) )}}</mat-label>
+
+                                <input matInput type="text" placeholder="" [formControlName]="propiedad">
+
+                                <mat-error *ngIf="f[propiedad].hasError('required')">
+                                    <strong>Este valor </strong> es requerido.
+                                </mat-error>
+                            </mat-form-field>
+                        </ng-container>
+
+                    </ng-container>
+
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'integer'">
+                    <mat-form-field appearance="outline" class="w100-container">
+                        <mat-label>{{this.apiService.camelCaseToTitleCase( CambioNombre(propiedad) )}}</mat-label>
+                        <input matInput type="number" placeholder="" [formControlName]="propiedad">
+                        <mat-error *ngIf="f[propiedad].hasError('required')">
+                            <strong>Este valor </strong> es requerido.
+                        </mat-error>
+                    </mat-form-field>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'Object'">
+
+                    <app-dropdown #selectCategoria [rutaClase]="BuscarRutaClase(propiedad)" [nombreCampo]="propiedad"
+                        [valor]="edicionRegistro[propiedad]" (editControl)=" f[propiedad].setValue($event)"
+                        style="width: 100%;" [hidden]="ocultarCampos(propiedad)">
+                    </app-dropdown>
+
+                </ng-container>
+
+                <ng-container *ngSwitchDefault>
+                    <mat-form-field appearance="outline" class="w100-container">
+                        <mat-label>{{this.apiService.camelCaseToTitleCase( CambioNombre(propiedad) )}}</mat-label>
+
+                        <input matInput type="text" placeholder="" [formControlName]="propiedad">
+
+                        <mat-error *ngIf="f[propiedad].hasError('required')">
+                            <strong>Este valor </strong> es requerido.
+                        </mat-error>
+                    </mat-form-field>
+                </ng-container>
+
+
+            </div>
+
+        </div>
+
+        <div style="margin-left: auto; margin-right: auto;  margin-top: auto; margin-bottom: auto;">
+            <button mat-raised-button (click)="Guardar()">
+                Guardar
+            </button>
+        </div>
+
+    </div>
+
+</form>

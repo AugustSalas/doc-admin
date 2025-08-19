@@ -1,0 +1,87 @@
+
+
+<!-- Main content -->
+<section class="content py-4 siadci-dashboard-page">
+  <div class="container-fluid">
+    <!-- Small boxes (Stat box) -->
+    <div class="row mx-4">
+      <div class="col-lg-6 col-6">
+        <!-- small box -->
+        <div class="small-box siadci-card bg-sidci-info">
+          <div class="sidci-card-body">
+            <div>
+              <img class="dashboard-icon" src="../../../assets/img/dashboard-news.png" alt="">
+            </div>
+            <div class="inner inner-card-siadci">
+              <h3 class="text-news">{{notificaciones.nuevos}}</h3>
+              <p class="text-news">Nuevos</p>
+            </div>
+          </div>
+          <a href="bucket/lista" class="small-box-footer lnk-more sidci-card-footer bg-footer-info">
+            más información
+            <i class="fas fa-arrow-circle-right"></i>
+          </a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-6 col-6">
+        <!-- small box -->
+        <div class="small-box siadci-card bg-sidci-success">
+          <div class="sidci-card-body">
+            <div>
+              <img class="dashboard-icon" src="../../../assets/img/dashboard-sends.png" alt="">
+            </div>
+            <div class="inner inner-card-siadci">
+              <h3 class="text-sends">{{notificaciones.enviados}}<sup style="font-size: 20px"></sup></h3>
+              <p class="text-sends">Enviados</p>
+            </div>
+          </div>
+          <a href="bucketsalida/lista" class="small-box-footer lnk-more bg-footer-success sidci-card-footer">
+            más información <i class="fas fa-arrow-circle-right"></i>
+          </a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-6 col-6">
+        <!-- small box -->
+        <div class="small-box siadci-card bg-sidci-warning">
+          <div class="sidci-card-body">
+            <div>
+              <img class="dashboard-icon" src="../../../assets/img/dashboard-pendings.png" alt="">
+            </div>
+            <div class="inner inner-card-siadci">
+              <h3 class="text-pendings">{{notificaciones.pendientes}}</h3>
+              <p class="text-pendings">Pendientes</p>
+            </div>
+          </div>
+          <a href="DocXfirmar/lista" class="small-box-footer lnk-more bg-footer-warning sidci-card-footer">
+            más información
+            <i class="fas fa-arrow-circle-right"></i>
+          </a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-6 col-6">
+        <!-- small box -->
+        <div class="small-box siadci-card bg-sidci-danger">
+          <div class="sidci-card-body">
+            <div>
+              <img class="dashboard-icon" src="../../../assets/img/dashboard-urgents.png" alt="">
+            </div>
+            <div class="inner inner-card-siadci">
+              <h3 class="text-urgents">{{notificaciones.urgentes}}</h3>
+              <p class="text-urgents">Urgentes</p>
+            </div>
+          </div>
+          <a href="bucket/ListaUrgentes" class="small-box-footer lnk-more bg-footer-danger sidci-card-footer">
+            más información <i class="fas fa-arrow-circle-right"></i>
+          </a>
+        </div>
+      </div>
+      <!-- ./col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- Main row -->
+</section>
+<!-- /.content -->
